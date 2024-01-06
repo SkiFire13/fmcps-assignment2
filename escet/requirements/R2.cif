@@ -1,0 +1,13 @@
+// Requirement 2: Machine 2 can start processing a workpiece only if the Buffer is full
+
+import "../plant/events.cif";
+
+requirement R2:
+
+    location EMPTY: initial; marked;
+        edge finish1 goto FULL;
+
+    location FULL: marked;
+        edge start2 goto EMPTY;
+
+end

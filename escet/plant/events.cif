@@ -1,0 +1,7 @@
+controllable left1, right1, up1, down1;
+uncontrollable uleft1, uright1, uup1, udown1;
+uncontrollable charge1;
+
+controllable left2, right2, up2, down2;
+uncontrollable uleft2, uright2, uup2, udown2;
+uncontrollable charge2;

@@ -1,0 +1,14 @@
+// Requirement 3: Machine 1 cannot start processing a workpiece if Machine 2 is down
+
+import "../plant/events.cif";
+
+requirement R3:
+
+    location M2UP: initial; marked;
+        edge break2 goto M2DOWN;
+        edge start1;
+
+    location M2DOWN: marked;
+        edge repair2 goto M2UP;
+
+end
