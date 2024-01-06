@@ -7,12 +7,11 @@ end
 tooldef("build-uncontrolled-plant.tooldef");
 
 cifmerge(
-   "../generated/uncontrolled-plant.cif",
-//    "../requirements/R1.cif",
+    "../generated/uncontrolled-plant.cif",
+    "../requirements/R1.cif",
 //    "../requirements/R2.cif",
-//    "../requirements/R3.cif",
-//    "../requirements/R4.cif",
-   "-o tmp.cif"
+    "../requirements/R3.cif",
+    "-o tmp.cif"
 );
 
 cifsupsynth(
@@ -22,11 +21,11 @@ cifsupsynth(
 );
 
 cifmerge(
-   "../generated/uncontrolled-plant.cif",
-   "supervisor.cif",
-   "-o ../generated/controlled-plant.cif"
+    "../generated/uncontrolled-plant.cif",
+    "supervisor.cif",
+    "-o ../generated/controlled-plant.cif"
 );
 
 rmfile("tmp.cif");
-//rmfile("supervisor.cif");
+rmfile("supervisor.cif");
 
