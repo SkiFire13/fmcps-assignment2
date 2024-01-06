@@ -11,7 +11,7 @@ int W = 5;
 int H = 3;
 
 tool string mk_edge(int x, int y, string next):
-    return fmt("        edge %7s goto X%dY%d;\n", next, x, y);
+    return fmt("        edge %-7s goto X%dY%d;\n", next, x, y);
 end
 
 for i in range(rovers):
