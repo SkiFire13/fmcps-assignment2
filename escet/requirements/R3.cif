@@ -4,11 +4,240 @@ import "../plant/events.cif";
 
 requirement R3:
 
-    location M2UP: initial; marked;
-        edge break2 goto M2DOWN;
-        edge start1;
+    location D_0_0: marked;
+        edge right1, left2 goto D_1_0;
+        edge down1, up2    goto D_0_1;
 
-    location M2DOWN: marked;
-        edge repair2 goto M2UP;
+    location D_1_0: marked;
+        edge right1, left2 goto D_2_0;
+        edge left1, right2 goto D_0_0;
+        edge down1, up2    goto D_1_1;
+
+    location D_2_0: marked;
+        edge right1, left2 goto D_3_0;
+        edge left1, right2 goto D_1_0;
+        edge down1, up2    goto D_2_1;
+
+    location D_3_0: marked;
+        edge right1, left2 goto D_4_0;
+        edge left1, right2 goto D_2_0;
+        edge down1, up2    goto D_3_1;
+
+    location D_4_0: marked;
+        edge right1, left2 goto D_5_0;
+        edge left1, right2 goto D_3_0;
+        edge down1, up2    goto D_4_1;
+
+    location D_5_0: marked;
+        edge right1, left2 goto D_6_0;
+        edge left1, right2 goto D_4_0;
+        edge down1, up2    goto D_5_1;
+
+    location D_6_0: marked;
+        edge right1, left2 goto D_7_0;
+        edge left1, right2 goto D_5_0;
+        edge down1, up2    goto D_6_1;
+
+    location D_7_0: marked;
+        edge right1, left2 goto D_8_0;
+        edge left1, right2 goto D_6_0;
+        edge down1, up2    goto D_7_1;
+
+    location D_8_0: marked;
+        edge left1, right2 goto D_7_0;
+        edge down1, up2    goto D_8_1;
+
+
+    location D_0_1: marked;
+        edge right1, left2 goto D_1_1;
+        edge down1, up2    goto D_0_2;
+        edge up1, down2    goto D_0_0;
+
+    location D_1_1: initial; marked;
+        edge right1, left2 goto D_2_1;
+        edge left1, right2 goto D_0_1;
+        edge down1, up2    goto D_1_2;
+        edge up1, down2    goto D_1_0;
+
+    location D_2_1: marked;
+        edge right1, left2 goto D_3_1;
+        edge left1, right2 goto D_1_1;
+        edge down1, up2    goto D_2_2;
+        edge up1, down2    goto D_2_0;
+
+    location D_3_1: marked;
+        edge right1, left2 goto D_4_1;
+        edge left1, right2 goto D_2_1;
+        edge down1, up2    goto D_3_2;
+        edge up1, down2    goto D_3_0;
+
+    location D_4_1: marked;
+        edge right1, left2 goto D_5_1;
+        edge left1, right2 goto D_3_1;
+        edge up1, down2    goto D_4_0;
+
+    location D_5_1: marked;
+        edge right1, left2 goto D_6_1;
+        edge left1, right2 goto D_4_1;
+        edge down1, up2    goto D_5_2;
+        edge up1, down2    goto D_5_0;
+
+    location D_6_1: marked;
+        edge right1, left2 goto D_7_1;
+        edge left1, right2 goto D_5_1;
+        edge down1, up2    goto D_6_2;
+        edge up1, down2    goto D_6_0;
+
+    location D_7_1: marked;
+        edge right1, left2 goto D_8_1;
+        edge left1, right2 goto D_6_1;
+        edge down1, up2    goto D_7_2;
+        edge up1, down2    goto D_7_0;
+
+    location D_8_1: marked;
+        edge left1, right2 goto D_7_1;
+        edge down1, up2    goto D_8_2;
+        edge up1, down2    goto D_8_0;
+
+
+    location D_0_2: marked;
+        edge right1, left2 goto D_1_2;
+        edge down1, up2    goto D_0_3;
+        edge up1, down2    goto D_0_1;
+
+    location D_1_2: marked;
+        edge right1, left2 goto D_2_2;
+        edge left1, right2 goto D_0_2;
+        edge down1, up2    goto D_1_3;
+        edge up1, down2    goto D_1_1;
+
+    location D_2_2: marked;
+        edge right1, left2 goto D_3_2;
+        edge left1, right2 goto D_1_2;
+        edge down1, up2    goto D_2_3;
+        edge up1, down2    goto D_2_1;
+
+    location D_3_2: marked;
+        edge left1, right2 goto D_2_2;
+        edge down1, up2    goto D_3_3;
+        edge up1, down2    goto D_3_1;
+
+    location D_5_2: marked;
+        edge right1, left2 goto D_6_2;
+        edge down1, up2    goto D_5_3;
+        edge up1, down2    goto D_5_1;
+
+    location D_6_2: marked;
+        edge right1, left2 goto D_7_2;
+        edge left1, right2 goto D_5_2;
+        edge down1, up2    goto D_6_3;
+        edge up1, down2    goto D_6_1;
+
+    location D_7_2: marked;
+        edge right1, left2 goto D_8_2;
+        edge left1, right2 goto D_6_2;
+        edge down1, up2    goto D_7_3;
+        edge up1, down2    goto D_7_1;
+
+    location D_8_2: marked;
+        edge left1, right2 goto D_7_2;
+        edge down1, up2    goto D_8_3;
+        edge up1, down2    goto D_8_1;
+
+
+    location D_0_3: marked;
+        edge right1, left2 goto D_1_3;
+        edge down1, up2    goto D_0_4;
+        edge up1, down2    goto D_0_2;
+
+    location D_1_3: marked;
+        edge right1, left2 goto D_2_3;
+        edge left1, right2 goto D_0_3;
+        edge down1, up2    goto D_1_4;
+        edge up1, down2    goto D_1_2;
+
+    location D_2_3: marked;
+        edge right1, left2 goto D_3_3;
+        edge left1, right2 goto D_1_3;
+        edge down1, up2    goto D_2_4;
+        edge up1, down2    goto D_2_2;
+
+    location D_3_3: marked;
+        edge right1, left2 goto D_4_3;
+        edge left1, right2 goto D_2_3;
+        edge down1, up2    goto D_3_4;
+        edge up1, down2    goto D_3_2;
+
+    location D_4_3: marked;
+        edge right1, left2 goto D_5_3;
+        edge left1, right2 goto D_3_3;
+        edge down1, up2    goto D_4_4;
+
+    location D_5_3: marked;
+        edge right1, left2 goto D_6_3;
+        edge left1, right2 goto D_4_3;
+        edge down1, up2    goto D_5_4;
+        edge up1, down2    goto D_5_2;
+
+    location D_6_3: marked;
+        edge right1, left2 goto D_7_3;
+        edge left1, right2 goto D_5_3;
+        edge down1, up2    goto D_6_4;
+        edge up1, down2    goto D_6_2;
+
+    location D_7_3: marked;
+        edge right1, left2 goto D_8_3;
+        edge left1, right2 goto D_6_3;
+        edge down1, up2    goto D_7_4;
+        edge up1, down2    goto D_7_2;
+
+    location D_8_3: marked;
+        edge left1, right2 goto D_7_3;
+        edge down1, up2    goto D_8_4;
+        edge up1, down2    goto D_8_2;
+
+
+    location D_0_4: marked;
+        edge right1, left2 goto D_1_4;
+        edge up1, down2    goto D_0_3;
+
+    location D_1_4: marked;
+        edge right1, left2 goto D_2_4;
+        edge left1, right2 goto D_0_4;
+        edge up1, down2    goto D_1_3;
+
+    location D_2_4: marked;
+        edge right1, left2 goto D_3_4;
+        edge left1, right2 goto D_1_4;
+        edge up1, down2    goto D_2_3;
+
+    location D_3_4: marked;
+        edge right1, left2 goto D_4_4;
+        edge left1, right2 goto D_2_4;
+        edge up1, down2    goto D_3_3;
+
+    location D_4_4: marked;
+        edge right1, left2 goto D_5_4;
+        edge left1, right2 goto D_3_4;
+        edge up1, down2    goto D_4_3;
+
+    location D_5_4: marked;
+        edge right1, left2 goto D_6_4;
+        edge left1, right2 goto D_4_4;
+        edge up1, down2    goto D_5_3;
+
+    location D_6_4: marked;
+        edge right1, left2 goto D_7_4;
+        edge left1, right2 goto D_5_4;
+        edge up1, down2    goto D_6_3;
+
+    location D_7_4: marked;
+        edge right1, left2 goto D_8_4;
+        edge left1, right2 goto D_6_4;
+        edge up1, down2    goto D_7_3;
+
+    location D_8_4: marked;
+        edge left1, right2 goto D_7_4;
+        edge up1, down2    goto D_8_3;
 
 end
