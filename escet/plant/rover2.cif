@@ -1,6 +1,6 @@
 import "../plant/events.cif";
 
-plant Rover2:
+plant R2:
     location X1Y1Charged: marked;
         edge  right2 goto X2Y1;
         edge   down2 goto X1Y2;
@@ -66,7 +66,7 @@ plant Rover2:
         edge     up2 goto X5Y2;
 end
 
-plant Rover2Charge:
+plant R2C:
     location C0:
         edge charge2 goto C6;
     location C1:
@@ -90,3 +90,57 @@ plant Rover2Charge:
 end
 
 svgfile "plant.svg";
+
+svgout id "rover2" attr "x" value
+    if   R2.X1Y1: "50"
+    elif R2.X1Y1Charged: "50"
+    elif R2.X2Y1: "150"
+    elif R2.X3Y1: "250"
+    elif R2.X4Y1: "350"
+    elif R2.X5Y1: "450"
+    elif R2.X1Y2: "50"
+    elif R2.X2Y2: "150"
+    elif R2.X3Y2: "250"
+    elif R2.X4Y2: "350"
+    elif R2.X4Y2Charged: "350"
+    elif R2.X5Y2: "450"
+    elif R2.X1Y3: "50"
+    elif R2.X2Y3: "150"
+    elif R2.X3Y3: "250"
+    elif R2.X4Y3: "350"
+    elif R2.X5Y3: "450"
+    else "50"
+    end;
+
+svgout id "rover2" attr "y" value
+    if   R2.X1Y1: "50"
+    elif R2.X1Y1Charged: "50"
+    elif R2.X2Y1: "50"
+    elif R2.X3Y1: "50"
+    elif R2.X4Y1: "50"
+    elif R2.X5Y1: "50"
+    elif R2.X1Y2: "150"
+    elif R2.X2Y2: "150"
+    elif R2.X3Y2: "150"
+    elif R2.X4Y2: "150"
+    elif R2.X4Y2Charged: "150"
+    elif R2.X5Y2: "150"
+    elif R2.X1Y3: "250"
+    elif R2.X2Y3: "250"
+    elif R2.X3Y3: "250"
+    elif R2.X4Y3: "250"
+    elif R2.X5Y3: "250"
+    else "50"
+    end;
+
+svgout id "battery2" attr "transform" value
+    if   R2C.C0: "translate(0) scale(6, 1)"
+    elif R2C.C1: "translate(34) scale(5, 1)"
+    elif R2C.C2: "translate(68) scale(4, 1)"
+    elif R2C.C3: "translate(102) scale(3, 1)"
+    elif R2C.C4: "translate(136) scale(2, 1)"
+    elif R2C.C5: "translate(170) scale(1, 1)"
+    elif R2C.C6: "translate(204) scale(0, 1)"
+    else "none"
+    end;
+

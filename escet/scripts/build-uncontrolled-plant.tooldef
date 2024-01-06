@@ -6,7 +6,6 @@ end
 
 cifmerge(
    "../plant/rover1.cif",
-//    "../plant/rover2.cif",
+   "../plant/rover2.cif",
    "-o ../generated/uncontrolled-plant.cif"
 );
-
