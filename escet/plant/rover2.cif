@@ -1,41 +1,92 @@
 import "../plant/events.cif";
 
 plant Rover2:
-    disc int x = 1;
-    disc int y = 1;
-
-    location: initial; marked;
-        edge left2  when x > 1 do x := x - 1;
-        edge right2 when x < 5 do x := x + 1;
-        edge up2    when y > 1 do y := y - 1;
-        edge down2  when y < 5 do y := y + 1;
-
-        edge uleft2  do x := x - 1;
-        edge uright2 do x := x + 1;
-        edge uup2    do y := y - 1;
-        edge udown2  do y := y + 1;
+    location X1Y1Charged: marked;
+        edge  right2 goto X2Y1;
+        edge   down2 goto X1Y2;
+    location X1Y1:
+        edge charge2 goto X1Y1Charged;
+    location X2Y1:
+        edge   left2 goto X1Y1;
+        edge  right2 goto X3Y1;
+        edge   down2 goto X2Y2;
+    location X3Y1:
+        edge   left2 goto X2Y1;
+        edge  right2 goto X4Y1;
+        edge   down2 goto X3Y2;
+    location X4Y1:
+        edge   left2 goto X3Y1;
+        edge  right2 goto X5Y1;
+        edge   down2 goto X4Y2;
+    location X5Y1:
+        edge   left2 goto X4Y1;
+        edge   down2 goto X5Y2;
+    location X1Y2:
+        edge  right2 goto X2Y2;
+        edge     up2 goto X1Y1;
+        edge   down2 goto X1Y3;
+    location X2Y2:
+        edge  uleft2 goto X1Y2;
+        edge uright2 goto X3Y2;
+        edge    uup2 goto X2Y1;
+        edge  udown2 goto X2Y3;
+    location X3Y2:
+        edge   left2 goto X2Y2;
+        edge  right2 goto X4Y2;
+        edge     up2 goto X3Y1;
+        edge   down2 goto X3Y3;
+    location X4Y2Charged: initial; marked;
+        edge   left2 goto X3Y2;
+        edge  right2 goto X5Y2;
+        edge     up2 goto X4Y1;
+        edge   down2 goto X4Y3;
+    location X4Y2:
+        edge charge2 goto X4Y2Charged;
+    location X5Y2:
+        edge   left2 goto X4Y2;
+        edge     up2 goto X5Y1;
+        edge   down2 goto X5Y3;
+    location X1Y3:
+        edge  right2 goto X2Y3;
+        edge     up2 goto X1Y2;
+    location X2Y3:
+        edge   left2 goto X1Y3;
+        edge  right2 goto X3Y3;
+        edge     up2 goto X2Y2;
+    location X3Y3:
+        edge   left2 goto X2Y3;
+        edge  right2 goto X4Y3;
+        edge     up2 goto X3Y2;
+    location X4Y3:
+        edge   left2 goto X3Y3;
+        edge  right2 goto X5Y3;
+        edge     up2 goto X4Y2;
+    location X5Y3:
+        edge   left2 goto X4Y3;
+        edge     up2 goto X5Y2;
 end
 
-plant Rover2Red:
-    location: initial; marked;
-        edge left2, right2, up2, down2 when not (Rover2.x = 2 and Rover2.y = 2);
-        edge uleft2, uright2, uup2, udown2 when (Rover2.x = 2 and Rover2.y = 2);
-end
-
-plant Rover2Battery:
-    disc int battery = 6;
-
-    location Charged: initial; marked;
-        edge left2, right2, up2, down2 do battery := battery - 1 goto Discharging;
-
-    location Discharging: marked;
-        edge left2, right2, up2, down2
-            when not ((Rover2.x = 1 and Rover2.y = 1) or (Rover2.x = 4 and Rover2.y = 2)) and battery > 1
-            do battery := battery - 1;
-        edge charge2
-            when (Rover2.x = 1 and Rover2.y = 1) or (Rover2.x = 4 and Rover2.y = 2)
-            do battery := 6
-            goto Charged;
+plant Rover2Charge:
+    location C0:
+        edge charge2 goto C6;
+    location C1:
+        edge charge2 goto C6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C0;
+    location C2:
+        edge charge2 goto C6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C1;
+    location C3:
+        edge charge2 goto C6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C2;
+    location C4:
+        edge charge2 goto C6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C3;
+    location C5:
+        edge charge2 goto C6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C4;
+    location C6: initial; marked;
+        edge charge2 goto C6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C5;
 end
 
 svgfile "plant.svg";

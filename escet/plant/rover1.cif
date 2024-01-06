@@ -1,100 +1,92 @@
 import "../plant/events.cif";
 
 plant Rover1:
-    disc int x = 1;
-    disc int y = 1;
-
-    location: initial; marked;
-        edge left1, uleft1   when x > 1 do x := x - 1;
-        edge right1, uright1 when x < 5 do x := x + 1;
-        edge up1, uup1       when y > 1 do y := y - 1;
-        edge down1, udown1   when y < 3 do y := y + 1;
-end
-
-plant Rover1Red:
-    location: initial; marked;
-        edge left1, right1, up1, down1 when not (Rover1.x = 2 and Rover1.y = 2);
-        edge uleft1, uright1, uup1, udown1 when (Rover1.x = 2 and Rover1.y = 2);
-end
-
-plant Rover1Battery:
-    disc int units = 6;
-
-    location: initial; marked;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 when units > 0 do units := units - 1;
-        edge charge1 do units := 6;
+    location X1Y1Charged: initial; marked;
+        edge  right1 goto X2Y1;
+        edge   down1 goto X1Y2;
+    location X1Y1:
+        edge charge1 goto X1Y1Charged;
+    location X2Y1:
+        edge   left1 goto X1Y1;
+        edge  right1 goto X3Y1;
+        edge   down1 goto X2Y2;
+    location X3Y1:
+        edge   left1 goto X2Y1;
+        edge  right1 goto X4Y1;
+        edge   down1 goto X3Y2;
+    location X4Y1:
+        edge   left1 goto X3Y1;
+        edge  right1 goto X5Y1;
+        edge   down1 goto X4Y2;
+    location X5Y1:
+        edge   left1 goto X4Y1;
+        edge   down1 goto X5Y2;
+    location X1Y2:
+        edge  right1 goto X2Y2;
+        edge     up1 goto X1Y1;
+        edge   down1 goto X1Y3;
+    location X2Y2:
+        edge  uleft1 goto X1Y2;
+        edge uright1 goto X3Y2;
+        edge    uup1 goto X2Y1;
+        edge  udown1 goto X2Y3;
+    location X3Y2:
+        edge   left1 goto X2Y2;
+        edge  right1 goto X4Y2;
+        edge     up1 goto X3Y1;
+        edge   down1 goto X3Y3;
+    location X4Y2Charged: marked;
+        edge   left1 goto X3Y2;
+        edge  right1 goto X5Y2;
+        edge     up1 goto X4Y1;
+        edge   down1 goto X4Y3;
+    location X4Y2:
+        edge charge1 goto X4Y2Charged;
+    location X5Y2:
+        edge   left1 goto X4Y2;
+        edge     up1 goto X5Y1;
+        edge   down1 goto X5Y3;
+    location X1Y3:
+        edge  right1 goto X2Y3;
+        edge     up1 goto X1Y2;
+    location X2Y3:
+        edge   left1 goto X1Y3;
+        edge  right1 goto X3Y3;
+        edge     up1 goto X2Y2;
+    location X3Y3:
+        edge   left1 goto X2Y3;
+        edge  right1 goto X4Y3;
+        edge     up1 goto X3Y2;
+    location X4Y3:
+        edge   left1 goto X3Y3;
+        edge  right1 goto X5Y3;
+        edge     up1 goto X4Y2;
+    location X5Y3:
+        edge   left1 goto X4Y3;
+        edge     up1 goto X5Y2;
 end
 
 plant Rover1Charge:
-     location: marked; initial;
-         edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 when Rover1Battery.units = 6;
-         edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1
-            when not (Rover1.x = 1 and Rover1.y = 1) and not (Rover1.x = 4 and Rover1.y = 2);
-         edge charge1 when Rover1.x = 1 and Rover1.y = 1 and not (Rover1Battery.units = 6);
-         edge charge1 when Rover1.x = 4 and Rover1.y = 2 and not (Rover1Battery.units = 6);
+    location C0:
+        edge charge1 goto C6;
+    location C1:
+        edge charge1 goto C6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C0;
+    location C2:
+        edge charge1 goto C6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C1;
+    location C3:
+        edge charge1 goto C6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C2;
+    location C4:
+        edge charge1 goto C6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C3;
+    location C5:
+        edge charge1 goto C6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C4;
+    location C6: initial; marked;
+        edge charge1 goto C6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C5;
 end
-
-// plant Rover1X:
-//     location X1: initial; marked;
-//         edge right1, uright1 goto X2;
-//     location X2: marked;
-//         edge left1,  uleft1  goto X1;
-//         edge right1, uright1 goto X3;
-//     location X3: marked;
-//         edge left1,  uleft1  goto X2;
-//         edge right1, uright1 goto X4;
-//     location X4: marked;
-//         edge left1,  uleft1  goto X3;
-//         edge right1, uright1 goto X5;
-//     location X5: marked;
-//         edge left1,  uleft1  goto X4;
-// end
-//
-// plant Rover1Y:
-//     location Y1: initial; marked;
-//         edge down1, udown1 goto Y2;
-//     location Y2: marked;
-//         edge up1,   uup1   goto Y1;
-//         edge down1, udown1 goto Y3;
-//     location Y3: marked;
-//         edge up1,   uup1   goto Y2;
-// end
-//
-// plant Rover1Red:
-//     location: initial; marked;
-//         edge left1, right1, up1, down1 when not (Rover1X.X2 and Rover1Y.Y2);
-//         edge uleft1, uright1, uup1, udown1 when (Rover1X.X2 and Rover1Y.Y2);
-// end
-//
-// plant Rover1Battery:
-//     location B6: marked; initial;
-//         edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto B5;
-//     location B5: marked;
-//         edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto B4;
-//         edge charge1 goto B6;
-//     location B4: marked;
-//         edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto B3;
-//         edge charge1 goto B6;
-//     location B3: marked;
-//         edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto B2;
-//         edge charge1 goto B6;
-//     location B2: marked;
-//         edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto B1;
-//         edge charge1 goto B6;
-//     location B1: marked;
-//         edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto B0;
-//         edge charge1 goto B6;
-//     location B0: marked;
-//         edge charge1 goto B6;
-// end
-//
-// plant Rover1Charge:
-//     location: marked; initial;
-//         edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 when Rover1Battery.B6;
-//         edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1
-//             when not (Rover1X.X1 and Rover1Y.Y1) and not (Rover1X.X4 and Rover1Y.Y2);
-//         edge charge1 when Rover1X.X1 and Rover1Y.Y1 and not Rover1Battery.B6;
-//         edge charge1 when Rover1X.X4 and Rover1Y.Y2 and not Rover1Battery.B6;
-// end
 
 svgfile "plant.svg";
