@@ -2,12 +2,156 @@
 
 import "../plant/events.cif";
 
-requirement R2:
+uncontrollable charge11, charge12, charge21, charge22;
 
-    location EMPTY: initial; marked;
-        edge finish1 goto FULL;
+requirement R2_R1:
+    location Initial: initial; marked;
+        edge charge11 goto T2;
+        edge charge12 goto T1;
+    location T1: marked;
+        edge charge11 goto T2;
+    location T2: marked;
+        edge charge12 goto T1;
+end
 
-    location FULL: marked;
-        edge start2 goto EMPTY;
+requirement R2_R2:
+    location Initial: initial; marked;
+        edge charge21 goto T2;
+        edge charge22 goto T1;
+    location T1: marked;
+        edge charge21 goto T2;
+    location T2: marked;
+        edge charge22 goto T1;
+end
 
+plant R2_R1C:
+    location X1Y1Charged: initial; marked;
+        edge right1  goto X2Y1;
+        edge down1   goto X1Y2;
+    location X1Y1:
+        edge charge11 goto X1Y1Charged;
+    location X2Y1:
+        edge left1   goto X1Y1;
+        edge right1  goto X3Y1;
+        edge down1   goto X2Y2;
+    location X3Y1:
+        edge left1   goto X2Y1;
+        edge right1  goto X4Y1;
+        edge down1   goto X3Y2;
+    location X4Y1:
+        edge left1   goto X3Y1;
+        edge right1  goto X5Y1;
+        edge down1   goto X4Y2;
+    location X5Y1:
+        edge left1   goto X4Y1;
+        edge down1   goto X5Y2;
+    location X1Y2:
+        edge right1  goto X2Y2;
+        edge up1     goto X1Y1;
+        edge down1   goto X1Y3;
+    location X2Y2:
+        edge uleft1  goto X1Y2;
+        edge uright1 goto X3Y2;
+        edge uup1    goto X2Y1;
+        edge udown1  goto X2Y3;
+    location X3Y2:
+        edge left1   goto X2Y2;
+        edge right1  goto X4Y2;
+        edge up1     goto X3Y1;
+        edge down1   goto X3Y3;
+    location X4Y2Charged: marked;
+        edge left1   goto X3Y2;
+        edge right1  goto X5Y2;
+        edge up1     goto X4Y1;
+        edge down1   goto X4Y3;
+    location X4Y2:
+        edge charge12 goto X4Y2Charged;
+    location X5Y2:
+        edge left1   goto X4Y2;
+        edge up1     goto X5Y1;
+        edge down1   goto X5Y3;
+    location X1Y3:
+        edge right1  goto X2Y3;
+        edge up1     goto X1Y2;
+    location X2Y3:
+        edge left1   goto X1Y3;
+        edge right1  goto X3Y3;
+        edge up1     goto X2Y2;
+    location X3Y3:
+        edge left1   goto X2Y3;
+        edge right1  goto X4Y3;
+        edge up1     goto X3Y2;
+    location X4Y3:
+        edge left1   goto X3Y3;
+        edge right1  goto X5Y3;
+        edge up1     goto X4Y2;
+    location X5Y3:
+        edge left1   goto X4Y3;
+        edge up1     goto X5Y2;
+end
+
+plant R2_R2C:
+    location X1Y1Charged: marked;
+        edge right2  goto X2Y1;
+        edge down2   goto X1Y2;
+    location X1Y1:
+        edge charge21 goto X1Y1Charged;
+    location X2Y1:
+        edge left2   goto X1Y1;
+        edge right2  goto X3Y1;
+        edge down2   goto X2Y2;
+    location X3Y1:
+        edge left2   goto X2Y1;
+        edge right2  goto X4Y1;
+        edge down2   goto X3Y2;
+    location X4Y1:
+        edge left2   goto X3Y1;
+        edge right2  goto X5Y1;
+        edge down2   goto X4Y2;
+    location X5Y1:
+        edge left2   goto X4Y1;
+        edge down2   goto X5Y2;
+    location X1Y2:
+        edge right2  goto X2Y2;
+        edge up2     goto X1Y1;
+        edge down2   goto X1Y3;
+    location X2Y2:
+        edge uleft2  goto X1Y2;
+        edge uright2 goto X3Y2;
+        edge uup2    goto X2Y1;
+        edge udown2  goto X2Y3;
+    location X3Y2:
+        edge left2   goto X2Y2;
+        edge right2  goto X4Y2;
+        edge up2     goto X3Y1;
+        edge down2   goto X3Y3;
+    location X4Y2Charged: initial; marked;
+        edge left2   goto X3Y2;
+        edge right2  goto X5Y2;
+        edge up2     goto X4Y1;
+        edge down2   goto X4Y3;
+    location X4Y2:
+        edge charge22 goto X4Y2Charged;
+    location X5Y2:
+        edge left2   goto X4Y2;
+        edge up2     goto X5Y1;
+        edge down2   goto X5Y3;
+    location X1Y3:
+        edge right2  goto X2Y3;
+        edge up2     goto X1Y2;
+    location X2Y3:
+        edge left2   goto X1Y3;
+        edge right2  goto X3Y3;
+        edge up2     goto X2Y2;
+    location X3Y3:
+        edge left2   goto X2Y3;
+        edge right2  goto X4Y3;
+        edge up2     goto X3Y2;
+    location X4Y3:
+        edge left2   goto X3Y3;
+        edge right2  goto X5Y3;
+        edge up2     goto X4Y2;
+    location X5Y3:
+        edge left2   goto X4Y3;
+        edge up2     goto X5Y2;
 end

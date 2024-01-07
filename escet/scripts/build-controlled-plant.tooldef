@@ -9,7 +9,7 @@ tooldef("build-uncontrolled-plant.tooldef");
 cifmerge(
     "../generated/uncontrolled-plant.cif",
     "../requirements/R1.cif",
-//    "../requirements/R2.cif",
+    "../requirements/R2.cif",
     "../requirements/R3.cif",
     "-o tmp.cif"
 );
