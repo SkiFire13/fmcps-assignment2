@@ -1,0 +1,57 @@
+// Requirement 3: Machine 1 cannot start processing a workpiece if Machine 2 is down
+
+import "../plant/events.cif";
+
+uncontrollable same_position;
+
+requirement R3:
+    location Ok: initial; marked;
+        edge same_position goto Blocked;
+    location Blocked;
+end
+
+plant R3X:
+    location L4: marked;
+        edge right1, uright1, left2, uleft2 goto L3;
+    location L3: initial; marked;
+        edge right1, uright1, left2, uleft2 goto L2;
+        edge left1, uleft1, right2, uright2 goto L4;
+    location L2: marked;
+        edge right1, uright1, left2, uleft2 goto L1;
+        edge left1, uleft1, right2, uright2 goto L3;
+    location L1: marked;
+        edge right1, uright1, left2, uleft2 goto C;
+        edge left1, uleft1, right2, uright2 goto L2;
+    location C: marked;
+        edge right1, uright1, left2, uleft2 goto R1;
+        edge left1, uleft1, right2, uright2 goto L1;
+        edge same_position goto C;
+    location R1: marked;
+        edge right1, uright1, left2, uleft2 goto R2;
+        edge left1, uleft1, right2, uright2 goto C;
+    location R2: marked;
+        edge right1, uright1, left2, uleft2 goto R3;
+        edge left1, uleft1, right2, uright2 goto R1;
+    location R3: marked;
+        edge right1, uright1, left2, uleft2 goto R4;
+        edge left1, uleft1, right2, uright2 goto R2;
+    location R4: marked;
+        edge left1, uleft1, right2, uright2 goto R3;
+end
+
+plant R3Y:
+    location T2: marked;
+        edge down1, udown1, up2, uup2 goto T1;
+    location T1: initial; marked;
+        edge down1, udown1, up2, uup2 goto C;
+        edge up1, uup1, down2, udown2 goto T2;
+    location C: marked;
+        edge down1, udown1, up2, uup2 goto B1;
+        edge up1, uup1, down2, udown2 goto T1;
+        edge same_position goto C;
+    location B1: marked;
+        edge down1, udown1, up2, uup2 goto B2;
+        edge up1, uup1, down2, udown2 goto C;
+    location B2: marked;
+        edge up1, uup1, down2, udown2 goto B1;
+end
