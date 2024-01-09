@@ -1,4 +1,5 @@
-// Requirement 3: Machine 1 cannot start processing a workpiece if Machine 2 is down
+// Requirement 3: Rovers don't collide with each other (i.e., they are never
+//                simultaneously on a same tile).
 
 import "../plant/events.cif";
 

@@ -1,4 +1,5 @@
-// Requirement 1: Machine 1 can start processing a workpiece only if the Buffer is empty
+// Requirement 1: Both rovers never run our of battery on tiles that do not have
+//                a charging station.
 
 import "../plant/events.cif";
 

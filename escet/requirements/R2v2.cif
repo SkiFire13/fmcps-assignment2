@@ -1,4 +1,5 @@
-// Requirement 2: Machine 2 can start processing a workpiece only if the Buffer is full
+// Requirement 2: Both rovers must always alternate the use of the charging stations
+//                in (1,1) and (2,4) regardless of which is used first.
 
 import "../plant/events.cif";
 
