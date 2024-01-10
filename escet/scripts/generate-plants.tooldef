@@ -74,7 +74,6 @@ for i in range(rovers):
     plant = plant + "    else \"50\"\n";
     plant = plant + "    end;\n\n";
 
-    // TODO: batteries
     plant = plant + fmt("svgout id \"battery%d\" attr \"transform\" value\n", i);
     keyword = "if  ";
     for charge in range(0, 6):
