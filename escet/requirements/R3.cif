@@ -4,241 +4,196 @@
 import "../plant/events.cif";
 
 requirement R3:
+    location L4U2: marked;
+        edge right1, uright1, left2, uleft2 goto L3U2;
+        edge down1, udown1, up2, uup2       goto L4U1;
+    location L3U2: marked;
+        edge right1, uright1, left2, uleft2 goto L2U2;
+        edge left1, uleft1, right2, uright2 goto L4U2;
+        edge down1, udown1, up2, uup2       goto L3U1;
+    location L2U2: marked;
+        edge right1, uright1, left2, uleft2 goto L1U2;
+        edge left1, uleft1, right2, uright2 goto L3U2;
+        edge down1, udown1, up2, uup2       goto L2U1;
+    location L1U2: marked;
+        edge right1, uright1, left2, uleft2 goto HCU2;
+        edge left1, uleft1, right2, uright2 goto L2U2;
+        edge down1, udown1, up2, uup2       goto L1U1;
+    location HCU2: marked;
+        edge right1, uright1, left2, uleft2 goto R1U2;
+        edge left1, uleft1, right2, uright2 goto L1U2;
+        edge down1, udown1, up2, uup2       goto HCU1;
+    location R1U2: marked;
+        edge right1, uright1, left2, uleft2 goto R2U2;
+        edge left1, uleft1, right2, uright2 goto HCU2;
+        edge down1, udown1, up2, uup2       goto R1U1;
+    location R2U2: marked;
+        edge right1, uright1, left2, uleft2 goto R3U2;
+        edge left1, uleft1, right2, uright2 goto R1U2;
+        edge down1, udown1, up2, uup2       goto R2U1;
+    location R3U2: marked;
+        edge right1, uright1, left2, uleft2 goto R4U2;
+        edge left1, uleft1, right2, uright2 goto R2U2;
+        edge down1, udown1, up2, uup2       goto R3U1;
+    location R4U2: marked;
+        edge left1, uleft1, right2, uright2 goto R3U2;
+        edge down1, udown1, up2, uup2       goto R4U1;
 
-    location D_0_0: marked;
-        edge right1, uright1, left2, uleft2 goto D_1_0;
-        edge down1, udown1, up2, uup2       goto D_0_1;
+    location L4U1: marked;
+        edge right1, uright1, left2, uleft2 goto L3U1;
+        edge down1, udown1, up2, uup2       goto L4VC;
+        edge up1, uup1, down2, udown2       goto L4U2;
+    location L3U1: initial; marked;
+        edge right1, uright1, left2, uleft2 goto L2U1;
+        edge left1, uleft1, right2, uright2 goto L4U1;
+        edge down1, udown1, up2, uup2       goto L3VC;
+        edge up1, uup1, down2, udown2       goto L3U2;
+    location L2U1: marked;
+        edge right1, uright1, left2, uleft2 goto L1U1;
+        edge left1, uleft1, right2, uright2 goto L3U1;
+        edge down1, udown1, up2, uup2       goto L2VC;
+        edge up1, uup1, down2, udown2       goto L2U2;
+    location L1U1: marked;
+        edge right1, uright1, left2, uleft2 goto HCU1;
+        edge left1, uleft1, right2, uright2 goto L2U1;
+        edge down1, udown1, up2, uup2       goto L1VC;
+        edge up1, uup1, down2, udown2       goto L1U2;
+    location HCU1: marked;
+        edge right1, uright1, left2, uleft2 goto R1U1;
+        edge left1, uleft1, right2, uright2 goto L1U1;
+        edge up1, uup1, down2, udown2       goto HCU2;
+    location R1U1: marked;
+        edge right1, uright1, left2, uleft2 goto R2U1;
+        edge left1, uleft1, right2, uright2 goto HCU1;
+        edge down1, udown1, up2, uup2       goto R1VC;
+        edge up1, uup1, down2, udown2       goto R1U2;
+    location R2U1: marked;
+        edge right1, uright1, left2, uleft2 goto R3U1;
+        edge left1, uleft1, right2, uright2 goto R1U1;
+        edge down1, udown1, up2, uup2       goto R2VC;
+        edge up1, uup1, down2, udown2       goto R2U2;
+    location R3U1: marked;
+        edge right1, uright1, left2, uleft2 goto R4U1;
+        edge left1, uleft1, right2, uright2 goto R2U1;
+        edge down1, udown1, up2, uup2       goto R3VC;
+        edge up1, uup1, down2, udown2       goto R3U2;
+    location R4U1: marked;
+        edge left1, uleft1, right2, uright2 goto R3U1;
+        edge down1, udown1, up2, uup2       goto R4VC;
+        edge up1, uup1, down2, udown2       goto R4U2;
 
-    location D_1_0: marked;
-        edge right1, uright1, left2, uleft2 goto D_2_0;
-        edge left1, uleft1, right2, uright2 goto D_0_0;
-        edge down1, udown1, up2, uup2       goto D_1_1;
+    location L4VC: marked;
+        edge right1, uright1, left2, uleft2 goto L3VC;
+        edge down1, udown1, up2, uup2       goto L4D1;
+        edge up1, uup1, down2, udown2       goto L4U1;
+    location L3VC: marked;
+        edge right1, uright1, left2, uleft2 goto L2VC;
+        edge left1, uleft1, right2, uright2 goto L4VC;
+        edge down1, udown1, up2, uup2       goto L3D1;
+        edge up1, uup1, down2, udown2       goto L3U1;
+    location L2VC: marked;
+        edge right1, uright1, left2, uleft2 goto L1VC;
+        edge left1, uleft1, right2, uright2 goto L3VC;
+        edge down1, udown1, up2, uup2       goto L2D1;
+        edge up1, uup1, down2, udown2       goto L2U1;
+    location L1VC: marked;
+        edge left1, uleft1, right2, uright2 goto L2VC;
+        edge down1, udown1, up2, uup2       goto L1D1;
+        edge up1, uup1, down2, udown2       goto L1U1;
+    location R1VC: marked;
+        edge right1, uright1, left2, uleft2 goto R2VC;
+        edge down1, udown1, up2, uup2       goto R1D1;
+        edge up1, uup1, down2, udown2       goto R1U1;
+    location R2VC: marked;
+        edge right1, uright1, left2, uleft2 goto R3VC;
+        edge left1, uleft1, right2, uright2 goto R1VC;
+        edge down1, udown1, up2, uup2       goto R2D1;
+        edge up1, uup1, down2, udown2       goto R2U1;
+    location R3VC: marked;
+        edge right1, uright1, left2, uleft2 goto R4VC;
+        edge left1, uleft1, right2, uright2 goto R2VC;
+        edge down1, udown1, up2, uup2       goto R3D1;
+        edge up1, uup1, down2, udown2       goto R3U1;
+    location R4VC: marked;
+        edge left1, uleft1, right2, uright2 goto R3VC;
+        edge down1, udown1, up2, uup2       goto R4D1;
+        edge up1, uup1, down2, udown2       goto R4U1;
 
-    location D_2_0: marked;
-        edge right1, uright1, left2, uleft2 goto D_3_0;
-        edge left1, uleft1, right2, uright2 goto D_1_0;
-        edge down1, udown1, up2, uup2       goto D_2_1;
+    location L4D1: marked;
+        edge right1, uright1, left2, uleft2 goto L3D1;
+        edge down1, udown1, up2, uup2       goto L4D2;
+        edge up1, uup1, down2, udown2       goto L4VC;
+    location L3D1: marked;
+        edge right1, uright1, left2, uleft2 goto L2D1;
+        edge left1, uleft1, right2, uright2 goto L4D1;
+        edge down1, udown1, up2, uup2       goto L3D2;
+        edge up1, uup1, down2, udown2       goto L3VC;
+    location L2D1: marked;
+        edge right1, uright1, left2, uleft2 goto L1D1;
+        edge left1, uleft1, right2, uright2 goto L3D1;
+        edge down1, udown1, up2, uup2       goto L2D2;
+        edge up1, uup1, down2, udown2       goto L2VC;
+    location L1D1: marked;
+        edge right1, uright1, left2, uleft2 goto HCD1;
+        edge left1, uleft1, right2, uright2 goto L2D1;
+        edge down1, udown1, up2, uup2       goto L1D2;
+        edge up1, uup1, down2, udown2       goto L1VC;
+    location HCD1: marked;
+        edge right1, uright1, left2, uleft2 goto R1D1;
+        edge left1, uleft1, right2, uright2 goto L1D1;
+        edge down1, udown1, up2, uup2       goto HCD2;
+    location R1D1: marked;
+        edge right1, uright1, left2, uleft2 goto R2D1;
+        edge left1, uleft1, right2, uright2 goto HCD1;
+        edge down1, udown1, up2, uup2       goto R1D2;
+        edge up1, uup1, down2, udown2       goto R1VC;
+    location R2D1: marked;
+        edge right1, uright1, left2, uleft2 goto R3D1;
+        edge left1, uleft1, right2, uright2 goto R1D1;
+        edge down1, udown1, up2, uup2       goto R2D2;
+        edge up1, uup1, down2, udown2       goto R2VC;
+    location R3D1: marked;
+        edge right1, uright1, left2, uleft2 goto R4D1;
+        edge left1, uleft1, right2, uright2 goto R2D1;
+        edge down1, udown1, up2, uup2       goto R3D2;
+        edge up1, uup1, down2, udown2       goto R3VC;
+    location R4D1: marked;
+        edge left1, uleft1, right2, uright2 goto R3D1;
+        edge down1, udown1, up2, uup2       goto R4D2;
+        edge up1, uup1, down2, udown2       goto R4VC;
 
-    location D_3_0: marked;
-        edge right1, uright1, left2, uleft2 goto D_4_0;
-        edge left1, uleft1, right2, uright2 goto D_2_0;
-        edge down1, udown1, up2, uup2       goto D_3_1;
-
-    location D_4_0: marked;
-        edge right1, uright1, left2, uleft2 goto D_5_0;
-        edge left1, uleft1, right2, uright2 goto D_3_0;
-        edge down1, udown1, up2, uup2       goto D_4_1;
-
-    location D_5_0: marked;
-        edge right1, uright1, left2, uleft2 goto D_6_0;
-        edge left1, uleft1, right2, uright2 goto D_4_0;
-        edge down1, udown1, up2, uup2       goto D_5_1;
-
-    location D_6_0: marked;
-        edge right1, uright1, left2, uleft2 goto D_7_0;
-        edge left1, uleft1, right2, uright2 goto D_5_0;
-        edge down1, udown1, up2, uup2       goto D_6_1;
-
-    location D_7_0: marked;
-        edge right1, uright1, left2, uleft2 goto D_8_0;
-        edge left1, uleft1, right2, uright2 goto D_6_0;
-        edge down1, udown1, up2, uup2       goto D_7_1;
-
-    location D_8_0: marked;
-        edge left1, uleft1, right2, uright2 goto D_7_0;
-        edge down1, udown1, up2, uup2       goto D_8_1;
-
-
-    location D_0_1: marked;
-        edge right1, uright1, left2, uleft2 goto D_1_1;
-        edge down1, udown1, up2, uup2       goto D_0_2;
-        edge up1, uup1, down2, udown2       goto D_0_0;
-
-    location D_1_1: initial; marked;
-        edge right1, uright1, left2, uleft2 goto D_2_1;
-        edge left1, uleft1, right2, uright2 goto D_0_1;
-        edge down1, udown1, up2, uup2       goto D_1_2;
-        edge up1, uup1, down2, udown2       goto D_1_0;
-
-    location D_2_1: marked;
-        edge right1, uright1, left2, uleft2 goto D_3_1;
-        edge left1, uleft1, right2, uright2 goto D_1_1;
-        edge down1, udown1, up2, uup2       goto D_2_2;
-        edge up1, uup1, down2, udown2       goto D_2_0;
-
-    location D_3_1: marked;
-        edge right1, uright1, left2, uleft2 goto D_4_1;
-        edge left1, uleft1, right2, uright2 goto D_2_1;
-        edge down1, udown1, up2, uup2       goto D_3_2;
-        edge up1, uup1, down2, udown2       goto D_3_0;
-
-    location D_4_1: marked;
-        edge right1, uright1, left2, uleft2 goto D_5_1;
-        edge left1, uleft1, right2, uright2 goto D_3_1;
-        edge up1, uup1, down2, udown2       goto D_4_0;
-
-    location D_5_1: marked;
-        edge right1, uright1, left2, uleft2 goto D_6_1;
-        edge left1, uleft1, right2, uright2 goto D_4_1;
-        edge down1, udown1, up2, uup2       goto D_5_2;
-        edge up1, uup1, down2, udown2       goto D_5_0;
-
-    location D_6_1: marked;
-        edge right1, uright1, left2, uleft2 goto D_7_1;
-        edge left1, uleft1, right2, uright2 goto D_5_1;
-        edge down1, udown1, up2, uup2       goto D_6_2;
-        edge up1, uup1, down2, udown2       goto D_6_0;
-
-    location D_7_1: marked;
-        edge right1, uright1, left2, uleft2 goto D_8_1;
-        edge left1, uleft1, right2, uright2 goto D_6_1;
-        edge down1, udown1, up2, uup2       goto D_7_2;
-        edge up1, uup1, down2, udown2       goto D_7_0;
-
-    location D_8_1: marked;
-        edge left1, uleft1, right2, uright2 goto D_7_1;
-        edge down1, udown1, up2, uup2       goto D_8_2;
-        edge up1, uup1, down2, udown2       goto D_8_0;
-
-
-    location D_0_2: marked;
-        edge right1, uright1, left2, uleft2 goto D_1_2;
-        edge down1, udown1, up2, uup2       goto D_0_3;
-        edge up1, uup1, down2, udown2       goto D_0_1;
-
-    location D_1_2: marked;
-        edge right1, uright1, left2, uleft2 goto D_2_2;
-        edge left1, uleft1, right2, uright2 goto D_0_2;
-        edge down1, udown1, up2, uup2       goto D_1_3;
-        edge up1, uup1, down2, udown2       goto D_1_1;
-
-    location D_2_2: marked;
-        edge right1, uright1, left2, uleft2 goto D_3_2;
-        edge left1, uleft1, right2, uright2 goto D_1_2;
-        edge down1, udown1, up2, uup2       goto D_2_3;
-        edge up1, uup1, down2, udown2       goto D_2_1;
-
-    location D_3_2: marked;
-        edge left1, uleft1, right2, uright2 goto D_2_2;
-        edge down1, udown1, up2, uup2       goto D_3_3;
-        edge up1, uup1, down2, udown2       goto D_3_1;
-
-    location D_5_2: marked;
-        edge right1, uright1, left2, uleft2 goto D_6_2;
-        edge down1, udown1, up2, uup2       goto D_5_3;
-        edge up1, uup1, down2, udown2       goto D_5_1;
-
-    location D_6_2: marked;
-        edge right1, uright1, left2, uleft2 goto D_7_2;
-        edge left1, uleft1, right2, uright2 goto D_5_2;
-        edge down1, udown1, up2, uup2       goto D_6_3;
-        edge up1, uup1, down2, udown2       goto D_6_1;
-
-    location D_7_2: marked;
-        edge right1, uright1, left2, uleft2 goto D_8_2;
-        edge left1, uleft1, right2, uright2 goto D_6_2;
-        edge down1, udown1, up2, uup2       goto D_7_3;
-        edge up1, uup1, down2, udown2       goto D_7_1;
-
-    location D_8_2: marked;
-        edge left1, uleft1, right2, uright2 goto D_7_2;
-        edge down1, udown1, up2, uup2       goto D_8_3;
-        edge up1, uup1, down2, udown2       goto D_8_1;
-
-
-    location D_0_3: marked;
-        edge right1, uright1, left2, uleft2 goto D_1_3;
-        edge down1, udown1, up2, uup2       goto D_0_4;
-        edge up1, uup1, down2, udown2       goto D_0_2;
-
-    location D_1_3: marked;
-        edge right1, uright1, left2, uleft2 goto D_2_3;
-        edge left1, uleft1, right2, uright2 goto D_0_3;
-        edge down1, udown1, up2, uup2       goto D_1_4;
-        edge up1, uup1, down2, udown2       goto D_1_2;
-
-    location D_2_3: marked;
-        edge right1, uright1, left2, uleft2 goto D_3_3;
-        edge left1, uleft1, right2, uright2 goto D_1_3;
-        edge down1, udown1, up2, uup2       goto D_2_4;
-        edge up1, uup1, down2, udown2       goto D_2_2;
-
-    location D_3_3: marked;
-        edge right1, uright1, left2, uleft2 goto D_4_3;
-        edge left1, uleft1, right2, uright2 goto D_2_3;
-        edge down1, udown1, up2, uup2       goto D_3_4;
-        edge up1, uup1, down2, udown2       goto D_3_2;
-
-    location D_4_3: marked;
-        edge right1, uright1, left2, uleft2 goto D_5_3;
-        edge left1, uleft1, right2, uright2 goto D_3_3;
-        edge down1, udown1, up2, uup2       goto D_4_4;
-
-    location D_5_3: marked;
-        edge right1, uright1, left2, uleft2 goto D_6_3;
-        edge left1, uleft1, right2, uright2 goto D_4_3;
-        edge down1, udown1, up2, uup2       goto D_5_4;
-        edge up1, uup1, down2, udown2       goto D_5_2;
-
-    location D_6_3: marked;
-        edge right1, uright1, left2, uleft2 goto D_7_3;
-        edge left1, uleft1, right2, uright2 goto D_5_3;
-        edge down1, udown1, up2, uup2       goto D_6_4;
-        edge up1, uup1, down2, udown2       goto D_6_2;
-
-    location D_7_3: marked;
-        edge right1, uright1, left2, uleft2 goto D_8_3;
-        edge left1, uleft1, right2, uright2 goto D_6_3;
-        edge down1, udown1, up2, uup2       goto D_7_4;
-        edge up1, uup1, down2, udown2       goto D_7_2;
-
-    location D_8_3: marked;
-        edge left1, uleft1, right2, uright2 goto D_7_3;
-        edge down1, udown1, up2, uup2       goto D_8_4;
-        edge up1, uup1, down2, udown2       goto D_8_2;
-
-
-    location D_0_4: marked;
-        edge right1, uright1, left2, uleft2 goto D_1_4;
-        edge up1, uup1, down2, udown2       goto D_0_3;
-
-    location D_1_4: marked;
-        edge right1, uright1, left2, uleft2 goto D_2_4;
-        edge left1, uleft1, right2, uright2 goto D_0_4;
-        edge up1, uup1, down2, udown2       goto D_1_3;
-
-    location D_2_4: marked;
-        edge right1, uright1, left2, uleft2 goto D_3_4;
-        edge left1, uleft1, right2, uright2 goto D_1_4;
-        edge up1, uup1, down2, udown2       goto D_2_3;
-
-    location D_3_4: marked;
-        edge right1, uright1, left2, uleft2 goto D_4_4;
-        edge left1, uleft1, right2, uright2 goto D_2_4;
-        edge up1, uup1, down2, udown2       goto D_3_3;
-
-    location D_4_4: marked;
-        edge right1, uright1, left2, uleft2 goto D_5_4;
-        edge left1, uleft1, right2, uright2 goto D_3_4;
-        edge up1, uup1, down2, udown2       goto D_4_3;
-
-    location D_5_4: marked;
-        edge right1, uright1, left2, uleft2 goto D_6_4;
-        edge left1, uleft1, right2, uright2 goto D_4_4;
-        edge up1, uup1, down2, udown2       goto D_5_3;
-
-    location D_6_4: marked;
-        edge right1, uright1, left2, uleft2 goto D_7_4;
-        edge left1, uleft1, right2, uright2 goto D_5_4;
-        edge up1, uup1, down2, udown2       goto D_6_3;
-
-    location D_7_4: marked;
-        edge right1, uright1, left2, uleft2 goto D_8_4;
-        edge left1, uleft1, right2, uright2 goto D_6_4;
-        edge up1, uup1, down2, udown2       goto D_7_3;
-
-    location D_8_4: marked;
-        edge left1, uleft1, right2, uright2 goto D_7_4;
-        edge up1, uup1, down2, udown2       goto D_8_3;
-
+    location L4D2: marked;
+        edge right1, uright1, left2, uleft2 goto L3D2;
+        edge up1, uup1, down2, udown2       goto L4D1;
+    location L3D2: marked;
+        edge right1, uright1, left2, uleft2 goto L2D2;
+        edge left1, uleft1, right2, uright2 goto L4D2;
+        edge up1, uup1, down2, udown2       goto L3D1;
+    location L2D2: marked;
+        edge right1, uright1, left2, uleft2 goto L1D2;
+        edge left1, uleft1, right2, uright2 goto L3D2;
+        edge up1, uup1, down2, udown2       goto L2D1;
+    location L1D2: marked;
+        edge right1, uright1, left2, uleft2 goto HCD2;
+        edge left1, uleft1, right2, uright2 goto L2D2;
+        edge up1, uup1, down2, udown2       goto L1D1;
+    location HCD2: marked;
+        edge right1, uright1, left2, uleft2 goto R1D2;
+        edge left1, uleft1, right2, uright2 goto L1D2;
+        edge up1, uup1, down2, udown2       goto HCD1;
+    location R1D2: marked;
+        edge right1, uright1, left2, uleft2 goto R2D2;
+        edge left1, uleft1, right2, uright2 goto HCD2;
+        edge up1, uup1, down2, udown2       goto R1D1;
+    location R2D2: marked;
+        edge right1, uright1, left2, uleft2 goto R3D2;
+        edge left1, uleft1, right2, uright2 goto R1D2;
+        edge up1, uup1, down2, udown2       goto R2D1;
+    location R3D2: marked;
+        edge right1, uright1, left2, uleft2 goto R4D2;
+        edge left1, uleft1, right2, uright2 goto R2D2;
+        edge up1, uup1, down2, udown2       goto R3D1;
+    location R4D2: marked;
+        edge left1, uleft1, right2, uright2 goto R3D2;
+        edge up1, uup1, down2, udown2       goto R4D1;
 end
