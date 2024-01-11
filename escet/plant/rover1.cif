@@ -1,11 +1,10 @@
 import "../plant/events.cif";
 
-plant R1:
-    location X1Y1Charged: initial; marked;
+plant Position1:
+    location X1Y1: initial; marked;
         edge right1  goto X2Y1;
         edge down1   goto X1Y2;
-    location X1Y1:
-        edge charge1 goto X1Y1Charged;
+        edge charge1 goto X1Y1;
     location X2Y1:
         edge left1   goto X1Y1;
         edge right1  goto X3Y1;
@@ -35,13 +34,12 @@ plant R1:
         edge right1  goto X4Y2;
         edge up1     goto X3Y1;
         edge down1   goto X3Y3;
-    location X4Y2Charged: marked;
+    location X4Y2:
         edge left1   goto X3Y2;
         edge right1  goto X5Y2;
         edge up1     goto X4Y1;
         edge down1   goto X4Y3;
-    location X4Y2:
-        edge charge1 goto X4Y2Charged;
+        edge charge1 goto X4Y2;
     location X5Y2:
         edge left1   goto X4Y2;
         edge up1     goto X5Y1;
@@ -66,81 +64,53 @@ plant R1:
         edge up1     goto X5Y2;
 end
 
-plant R1C:
-    location C0:
-        edge charge1 goto C6;
-    location C1:
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C0;
-    location C2:
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C1;
-    location C3:
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C2;
-    location C4:
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C3;
-    location C5:
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C4;
-    location C6: initial; marked;
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C5;
+plant Battery1:
+    location L0:
+        edge charge1 goto L6;
+    location L1:
+        edge charge1 goto L6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L0;
+    location L2:
+        edge charge1 goto L6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L1;
+    location L3:
+        edge charge1 goto L6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L2;
+    location L4:
+        edge charge1 goto L6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L3;
+    location L5:
+        edge charge1 goto L6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L4;
+    location L6: initial; marked;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L5;
 end
 
 svgfile "plant.svg";
 
 svgout id "rover1" attr "x" value
-    if   R1.X1Y1: "50"
-    elif R1.X1Y1Charged: "50"
-    elif R1.X2Y1: "150"
-    elif R1.X3Y1: "250"
-    elif R1.X4Y1: "350"
-    elif R1.X5Y1: "450"
-    elif R1.X1Y2: "50"
-    elif R1.X2Y2: "150"
-    elif R1.X3Y2: "250"
-    elif R1.X4Y2: "350"
-    elif R1.X4Y2Charged: "350"
-    elif R1.X5Y2: "450"
-    elif R1.X1Y3: "50"
-    elif R1.X2Y3: "150"
-    elif R1.X3Y3: "250"
-    elif R1.X4Y3: "350"
-    elif R1.X5Y3: "450"
+    if   Position1.X1Y1 or Position1.X1Y2 or Position1.X1Y3: "50"
+    elif Position1.X2Y1 or Position1.X2Y2 or Position1.X2Y3: "150"
+    elif Position1.X3Y1 or Position1.X3Y2 or Position1.X3Y3: "250"
+    elif Position1.X4Y1 or Position1.X4Y2 or Position1.X4Y3: "350"
+    elif Position1.X5Y1 or Position1.X5Y2 or Position1.X5Y3: "450"
     else "50"
     end;
 
 svgout id "rover1" attr "y" value
-    if   R1.X1Y1: "50"
-    elif R1.X1Y1Charged: "50"
-    elif R1.X2Y1: "50"
-    elif R1.X3Y1: "50"
-    elif R1.X4Y1: "50"
-    elif R1.X5Y1: "50"
-    elif R1.X1Y2: "150"
-    elif R1.X2Y2: "150"
-    elif R1.X3Y2: "150"
-    elif R1.X4Y2: "150"
-    elif R1.X4Y2Charged: "150"
-    elif R1.X5Y2: "150"
-    elif R1.X1Y3: "250"
-    elif R1.X2Y3: "250"
-    elif R1.X3Y3: "250"
-    elif R1.X4Y3: "250"
-    elif R1.X5Y3: "250"
+    if   Position1.X1Y1 or Position1.X2Y1 or Position1.X3Y1 or Position1.X4Y1 or Position1.X5Y1: "50"
+    elif Position1.X1Y2 or Position1.X2Y2 or Position1.X3Y2 or Position1.X4Y2 or Position1.X5Y2: "150"
+    elif Position1.X1Y3 or Position1.X2Y3 or Position1.X3Y3 or Position1.X4Y3 or Position1.X5Y3: "250"
     else "50"
     end;
 
 svgout id "battery1" attr "transform" value
-    if   R1C.C0: "translate(0) scale(6, 1)"
-    elif R1C.C1: "translate(34) scale(5, 1)"
-    elif R1C.C2: "translate(68) scale(4, 1)"
-    elif R1C.C3: "translate(102) scale(3, 1)"
-    elif R1C.C4: "translate(136) scale(2, 1)"
-    elif R1C.C5: "translate(170) scale(1, 1)"
-    elif R1C.C6: "translate(204) scale(0, 1)"
+    if   Battery1.L0: "translate(0)   scale(6, 1)"
+    elif Battery1.L1: "translate(34)  scale(5, 1)"
+    elif Battery1.L2: "translate(68)  scale(4, 1)"
+    elif Battery1.L3: "translate(102) scale(3, 1)"
+    elif Battery1.L4: "translate(136) scale(2, 1)"
+    elif Battery1.L5: "translate(170) scale(1, 1)"
+    elif Battery1.L6: "translate(204) scale(0, 1)"
     else "none"
     end;
-

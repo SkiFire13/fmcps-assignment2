@@ -3,52 +3,46 @@
 
 import "../plant/events.cif";
 
-requirement R1_1:
-
-    location C0:
-        edge charge1 goto C6;
-    location C1: marked;
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C0;
-    location C2: marked;
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C1;
-    location C3: marked;
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C2;
-    location C4: marked;
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C3;
-    location C5: marked;
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C4;
-    location C6: initial; marked;
-        edge charge1 goto C6;
-        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto C5;
-
+requirement R1_Rover1:
+    location L0:
+        edge charge1 goto L6;
+    location L1: marked;
+        edge charge1 goto L6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L0;
+    location L2: marked;
+        edge charge1 goto L6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L1;
+    location L3: marked;
+        edge charge1 goto L6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L2;
+    location L4: marked;
+        edge charge1 goto L6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L3;
+    location L5: marked;
+        edge charge1 goto L6;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L4;
+    location L6: initial; marked;
+        edge left1, right1, up1, down1, uleft1, uright1, uup1, udown1 goto L5;
 end
 
-requirement R1_2:
-
-    location C0:
-        edge charge2 goto C6;
-    location C1: marked;
-        edge charge2 goto C6;
-        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C0;
-    location C2: marked;
-        edge charge2 goto C6;
-        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C1;
-    location C3: marked;
-        edge charge2 goto C6;
-        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C2;
-    location C4: marked;
-        edge charge2 goto C6;
-        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C3;
-    location C5: marked;
-        edge charge2 goto C6;
-        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C4;
-    location C6: initial; marked;
-        edge charge2 goto C6;
-        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto C5;
-
+requirement R1_Rover2:
+    location L0:
+        edge charge2 goto L6;
+    location L1: marked;
+        edge charge2 goto L6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L0;
+    location L2: marked;
+        edge charge2 goto L6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L1;
+    location L3: marked;
+        edge charge2 goto L6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L2;
+    location L4: marked;
+        edge charge2 goto L6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L3;
+    location L5: marked;
+        edge charge2 goto L6;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L4;
+    location L6: initial; marked;
+        edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L5;
 end

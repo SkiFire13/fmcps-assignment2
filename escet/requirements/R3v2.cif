@@ -6,9 +6,9 @@ import "../plant/events.cif";
 uncontrollable same_position;
 
 requirement R3:
-    location Ok: initial; marked;
-        edge same_position goto Blocked;
-    location Blocked;
+    location Valid: initial; marked;
+        edge same_position goto Invalid;
+    location Invalid;
 end
 
 plant R3X:
@@ -21,15 +21,15 @@ plant R3X:
         edge right1, uright1, left2, uleft2 goto L1;
         edge left1, uleft1, right2, uright2 goto L3;
     location L1: marked;
-        edge right1, uright1, left2, uleft2 goto C;
+        edge right1, uright1, left2, uleft2 goto HC;
         edge left1, uleft1, right2, uright2 goto L2;
-    location C: marked;
+    location HC: marked;
         edge right1, uright1, left2, uleft2 goto R1;
         edge left1, uleft1, right2, uright2 goto L1;
-        edge same_position goto C;
+        edge same_position                  goto HC;
     location R1: marked;
         edge right1, uright1, left2, uleft2 goto R2;
-        edge left1, uleft1, right2, uright2 goto C;
+        edge left1, uleft1, right2, uright2 goto HC;
     location R2: marked;
         edge right1, uright1, left2, uleft2 goto R3;
         edge left1, uleft1, right2, uright2 goto R1;
@@ -44,15 +44,15 @@ plant R3Y:
     location T2: marked;
         edge down1, udown1, up2, uup2 goto T1;
     location T1: initial; marked;
-        edge down1, udown1, up2, uup2 goto C;
+        edge down1, udown1, up2, uup2 goto VC;
         edge up1, uup1, down2, udown2 goto T2;
-    location C: marked;
+    location VC: marked;
         edge down1, udown1, up2, uup2 goto B1;
         edge up1, uup1, down2, udown2 goto T1;
-        edge same_position goto C;
+        edge same_position            goto VC;
     location B1: marked;
         edge down1, udown1, up2, uup2 goto B2;
-        edge up1, uup1, down2, udown2 goto C;
+        edge up1, uup1, down2, udown2 goto VC;
     location B2: marked;
         edge up1, uup1, down2, udown2 goto B1;
 end

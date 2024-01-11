@@ -17,7 +17,7 @@ cifmerge(
 cifsupsynth(
     "tmp.cif",
     "-o supervisor.cif",
-    "-n supervisor" // name the automaton
+    "-n supervisor"
 );
 
 cifmerge(
@@ -28,4 +28,3 @@ cifmerge(
 
 rmfile("tmp.cif");
 rmfile("supervisor.cif");
-

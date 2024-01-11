@@ -3,92 +3,92 @@
 
 import "../plant/events.cif";
 
-requirement R2_R1:
+requirement R2_Rover1:
     location X1Y1I: initial; marked;
         edge right1  goto X2Y1I;
         edge down1   goto X1Y2I;
         edge charge1 goto X1Y1N2;
-    location X2Y1I:
+    location X2Y1I: marked;
         edge left1   goto X1Y1I;
         edge right1  goto X3Y1I;
         edge down1   goto X2Y2I;
-    location X3Y1I:
+    location X3Y1I: marked;
         edge left1   goto X2Y1I;
         edge right1  goto X4Y1I;
         edge down1   goto X3Y2I;
-    location X4Y1I:
+    location X4Y1I: marked;
         edge left1   goto X3Y1I;
         edge right1  goto X5Y1I;
         edge down1   goto X4Y2I;
-    location X5Y1I:
+    location X5Y1I: marked;
         edge left1   goto X4Y1I;
         edge down1   goto X5Y2I;
-    location X1Y2I:
+    location X1Y2I: marked;
         edge right1  goto X2Y2I;
         edge up1     goto X1Y1I;
         edge down1   goto X1Y3I;
-    location X2Y2I:
+    location X2Y2I: marked;
         edge uleft1  goto X1Y2I;
         edge uright1 goto X3Y2I;
         edge uup1    goto X2Y1I;
         edge udown1  goto X2Y3I;
-    location X3Y2I:
+    location X3Y2I: marked;
         edge left1   goto X2Y2I;
         edge right1  goto X4Y2I;
         edge up1     goto X3Y1I;
         edge down1   goto X3Y3I;
     location X4Y2I: marked;
         edge charge1 goto X4Y2N1;
-    location X5Y2I:
+    location X5Y2I: marked;
         edge left1   goto X4Y2I;
         edge up1     goto X5Y1I;
         edge down1   goto X5Y3I;
-    location X1Y3I:
+    location X1Y3I: marked;
         edge right1  goto X2Y3I;
         edge up1     goto X1Y2I;
-    location X2Y3I:
+    location X2Y3I: marked;
         edge left1   goto X1Y3I;
         edge right1  goto X3Y3I;
         edge up1     goto X2Y2I;
-    location X3Y3I:
+    location X3Y3I: marked;
         edge left1   goto X2Y3I;
         edge right1  goto X4Y3I;
         edge up1     goto X3Y2I;
-    location X4Y3I:
+    location X4Y3I: marked;
         edge left1   goto X3Y3I;
         edge right1  goto X5Y3I;
         edge up1     goto X4Y2I;
-    location X5Y3I:
+    location X5Y3I: marked;
         edge left1   goto X4Y3I;
         edge up1     goto X5Y2I;
 
     location X1Y1N1: marked;
         edge charge1 goto X1Y1N2;
-    location X2Y1N1:
+    location X2Y1N1: marked;
         edge left1   goto X1Y1N1;
         edge right1  goto X3Y1N1;
         edge down1   goto X2Y2N1;
-    location X3Y1N1:
+    location X3Y1N1: marked;
         edge left1   goto X2Y1N1;
         edge right1  goto X4Y1N1;
         edge down1   goto X3Y2N1;
-    location X4Y1N1:
+    location X4Y1N1: marked;
         edge left1   goto X3Y1N1;
         edge right1  goto X5Y1N1;
         edge down1   goto X4Y2N1;
-    location X5Y1N1:
+    location X5Y1N1: marked;
         edge left1   goto X4Y1N1;
         edge down1   goto X5Y2N1;
-    location X1Y2N1:
+    location X1Y2N1: marked;
         edge right1  goto X2Y2N1;
         edge up1     goto X1Y1N1;
         edge down1   goto X1Y3N1;
-    location X2Y2N1:
+    location X2Y2N1: marked;
         edge uleft1  goto X1Y2N1;
         edge uright1 goto X3Y2N1;
         edge uup1    goto X2Y1N1;
         edge udown1  goto X2Y3N1;
-    location X3Y2N1:
+    location X3Y2N1: marked;
         edge left1   goto X2Y2N1;
         edge right1  goto X4Y2N1;
         edge up1     goto X3Y1N1;
@@ -98,115 +98,115 @@ requirement R2_R1:
         edge right1  goto X5Y2N1;
         edge up1     goto X4Y1N1;
         edge down1   goto X4Y3N1;
-    location X5Y2N1:
+    location X5Y2N1: marked;
         edge left1   goto X4Y2N1;
         edge up1     goto X5Y1N1;
         edge down1   goto X5Y3N1;
-    location X1Y3N1:
+    location X1Y3N1: marked;
         edge right1  goto X2Y3N1;
         edge up1     goto X1Y2N1;
-    location X2Y3N1:
+    location X2Y3N1: marked;
         edge left1   goto X1Y3N1;
         edge right1  goto X3Y3N1;
         edge up1     goto X2Y2N1;
-    location X3Y3N1:
+    location X3Y3N1: marked;
         edge left1   goto X2Y3N1;
         edge right1  goto X4Y3N1;
         edge up1     goto X3Y2N1;
-    location X4Y3N1:
+    location X4Y3N1: marked;
         edge left1   goto X3Y3N1;
         edge right1  goto X5Y3N1;
         edge up1     goto X4Y2N1;
-    location X5Y3N1:
+    location X5Y3N1: marked;
         edge left1   goto X4Y3N1;
         edge up1     goto X5Y2N1;
 
     location X1Y1N2: marked;
         edge right1  goto X2Y1N2;
         edge down1   goto X1Y2N2;
-    location X2Y1N2:
+    location X2Y1N2: marked;
         edge left1   goto X1Y1N2;
         edge right1  goto X3Y1N2;
         edge down1   goto X2Y2N2;
-    location X3Y1N2:
+    location X3Y1N2: marked;
         edge left1   goto X2Y1N2;
         edge right1  goto X4Y1N2;
         edge down1   goto X3Y2N2;
-    location X4Y1N2:
+    location X4Y1N2: marked;
         edge left1   goto X3Y1N2;
         edge right1  goto X5Y1N2;
         edge down1   goto X4Y2N2;
-    location X5Y1N2:
+    location X5Y1N2: marked;
         edge left1   goto X4Y1N2;
         edge down1   goto X5Y2N2;
-    location X1Y2N2:
+    location X1Y2N2: marked;
         edge right1  goto X2Y2N2;
         edge up1     goto X1Y1N2;
         edge down1   goto X1Y3N2;
-    location X2Y2N2:
+    location X2Y2N2: marked;
         edge uleft1  goto X1Y2N2;
         edge uright1 goto X3Y2N2;
         edge uup1    goto X2Y1N2;
         edge udown1  goto X2Y3N2;
-    location X3Y2N2:
+    location X3Y2N2: marked;
         edge left1   goto X2Y2N2;
         edge right1  goto X4Y2N2;
         edge up1     goto X3Y1N2;
         edge down1   goto X3Y3N2;
     location X4Y2N2: marked;
         edge charge1 goto X4Y2N1;
-    location X5Y2N2:
+    location X5Y2N2: marked;
         edge left1   goto X4Y2N2;
         edge up1     goto X5Y1N2;
         edge down1   goto X5Y3N2;
-    location X1Y3N2:
+    location X1Y3N2: marked;
         edge right1  goto X2Y3N2;
         edge up1     goto X1Y2N2;
-    location X2Y3N2:
+    location X2Y3N2: marked;
         edge left1   goto X1Y3N2;
         edge right1  goto X3Y3N2;
         edge up1     goto X2Y2N2;
-    location X3Y3N2:
+    location X3Y3N2: marked;
         edge left1   goto X2Y3N2;
         edge right1  goto X4Y3N2;
         edge up1     goto X3Y2N2;
-    location X4Y3N2:
+    location X4Y3N2: marked;
         edge left1   goto X3Y3N2;
         edge right1  goto X5Y3N2;
         edge up1     goto X4Y2N2;
-    location X5Y3N2:
+    location X5Y3N2: marked;
         edge left1   goto X4Y3N2;
         edge up1     goto X5Y2N2;
 end
 
-requirement R2_R2:
+requirement R2_Rover2:
     location X1Y1I: marked;
         edge charge2 goto X1Y1N2;
-    location X2Y1I:
+    location X2Y1I: marked;
         edge left2   goto X1Y1I;
         edge right2  goto X3Y1I;
         edge down2   goto X2Y2I;
-    location X3Y1I:
+    location X3Y1I: marked;
         edge left2   goto X2Y1I;
         edge right2  goto X4Y1I;
         edge down2   goto X3Y2I;
-    location X4Y1I:
+    location X4Y1I: marked;
         edge left2   goto X3Y1I;
         edge right2  goto X5Y1I;
         edge down2   goto X4Y2I;
-    location X5Y1I:
+    location X5Y1I: marked;
         edge left2   goto X4Y1I;
         edge down2   goto X5Y2I;
-    location X1Y2I:
+    location X1Y2I: marked;
         edge right2  goto X2Y2I;
         edge up2     goto X1Y1I;
         edge down2   goto X1Y3I;
-    location X2Y2I:
+    location X2Y2I: marked;
         edge uleft2  goto X1Y2I;
         edge uright2 goto X3Y2I;
         edge uup2    goto X2Y1I;
         edge udown2  goto X2Y3I;
-    location X3Y2I:
+    location X3Y2I: marked;
         edge left2   goto X2Y2I;
         edge right2  goto X4Y2I;
         edge up2     goto X3Y1I;
@@ -217,56 +217,56 @@ requirement R2_R2:
         edge up2     goto X4Y1I;
         edge down2   goto X4Y3I;
         edge charge2 goto X4Y2N1;
-    location X5Y2I:
+    location X5Y2I: marked;
         edge left2   goto X4Y2I;
         edge up2     goto X5Y1I;
         edge down2   goto X5Y3I;
-    location X1Y3I:
+    location X1Y3I: marked;
         edge right2  goto X2Y3I;
         edge up2     goto X1Y2I;
-    location X2Y3I:
+    location X2Y3I: marked;
         edge left2   goto X1Y3I;
         edge right2  goto X3Y3I;
         edge up2     goto X2Y2I;
-    location X3Y3I:
+    location X3Y3I: marked;
         edge left2   goto X2Y3I;
         edge right2  goto X4Y3I;
         edge up2     goto X3Y2I;
-    location X4Y3I:
+    location X4Y3I: marked;
         edge left2   goto X3Y3I;
         edge right2  goto X5Y3I;
         edge up2     goto X4Y2I;
-    location X5Y3I:
+    location X5Y3I: marked;
         edge left2   goto X4Y3I;
         edge up2     goto X5Y2I;
 
     location X1Y1N1: marked;
         edge charge2 goto X1Y1N2;
-    location X2Y1N1:
+    location X2Y1N1: marked;
         edge left2   goto X1Y1N1;
         edge right2  goto X3Y1N1;
         edge down2   goto X2Y2N1;
-    location X3Y1N1:
+    location X3Y1N1: marked;
         edge left2   goto X2Y1N1;
         edge right2  goto X4Y1N1;
         edge down2   goto X3Y2N1;
-    location X4Y1N1:
+    location X4Y1N1: marked;
         edge left2   goto X3Y1N1;
         edge right2  goto X5Y1N1;
         edge down2   goto X4Y2N1;
-    location X5Y1N1:
+    location X5Y1N1: marked;
         edge left2   goto X4Y1N1;
         edge down2   goto X5Y2N1;
-    location X1Y2N1:
+    location X1Y2N1: marked;
         edge right2  goto X2Y2N1;
         edge up2     goto X1Y1N1;
         edge down2   goto X1Y3N1;
-    location X2Y2N1:
+    location X2Y2N1: marked;
         edge uleft2  goto X1Y2N1;
         edge uright2 goto X3Y2N1;
         edge uup2    goto X2Y1N1;
         edge udown2  goto X2Y3N1;
-    location X3Y2N1:
+    location X3Y2N1: marked;
         edge left2   goto X2Y2N1;
         edge right2  goto X4Y2N1;
         edge up2     goto X3Y1N1;
@@ -276,83 +276,83 @@ requirement R2_R2:
         edge right2  goto X5Y2N1;
         edge up2     goto X4Y1N1;
         edge down2   goto X4Y3N1;
-    location X5Y2N1:
+    location X5Y2N1: marked;
         edge left2   goto X4Y2N1;
         edge up2     goto X5Y1N1;
         edge down2   goto X5Y3N1;
-    location X1Y3N1:
+    location X1Y3N1: marked;
         edge right2  goto X2Y3N1;
         edge up2     goto X1Y2N1;
-    location X2Y3N1:
+    location X2Y3N1: marked;
         edge left2   goto X1Y3N1;
         edge right2  goto X3Y3N1;
         edge up2     goto X2Y2N1;
-    location X3Y3N1:
+    location X3Y3N1: marked;
         edge left2   goto X2Y3N1;
         edge right2  goto X4Y3N1;
         edge up2     goto X3Y2N1;
-    location X4Y3N1:
+    location X4Y3N1: marked;
         edge left2   goto X3Y3N1;
         edge right2  goto X5Y3N1;
         edge up2     goto X4Y2N1;
-    location X5Y3N1:
+    location X5Y3N1: marked;
         edge left2   goto X4Y3N1;
         edge up2     goto X5Y2N1;
 
     location X1Y1N2: marked;
         edge right2  goto X2Y1N2;
         edge down2   goto X1Y2N2;
-    location X2Y1N2:
+    location X2Y1N2: marked;
         edge left2   goto X1Y1N2;
         edge right2  goto X3Y1N2;
         edge down2   goto X2Y2N2;
-    location X3Y1N2:
+    location X3Y1N2: marked;
         edge left2   goto X2Y1N2;
         edge right2  goto X4Y1N2;
         edge down2   goto X3Y2N2;
-    location X4Y1N2:
+    location X4Y1N2: marked;
         edge left2   goto X3Y1N2;
         edge right2  goto X5Y1N2;
         edge down2   goto X4Y2N2;
-    location X5Y1N2:
+    location X5Y1N2: marked;
         edge left2   goto X4Y1N2;
         edge down2   goto X5Y2N2;
-    location X1Y2N2:
+    location X1Y2N2: marked;
         edge right2  goto X2Y2N2;
         edge up2     goto X1Y1N2;
         edge down2   goto X1Y3N2;
-    location X2Y2N2:
+    location X2Y2N2: marked;
         edge uleft2  goto X1Y2N2;
         edge uright2 goto X3Y2N2;
         edge uup2    goto X2Y1N2;
         edge udown2  goto X2Y3N2;
-    location X3Y2N2:
+    location X3Y2N2: marked;
         edge left2   goto X2Y2N2;
         edge right2  goto X4Y2N2;
         edge up2     goto X3Y1N2;
         edge down2   goto X3Y3N2;
     location X4Y2N2: marked;
         edge charge2 goto X4Y2N1;
-    location X5Y2N2:
+    location X5Y2N2: marked;
         edge left2   goto X4Y2N2;
         edge up2     goto X5Y1N2;
         edge down2   goto X5Y3N2;
-    location X1Y3N2:
+    location X1Y3N2: marked;
         edge right2  goto X2Y3N2;
         edge up2     goto X1Y2N2;
-    location X2Y3N2:
+    location X2Y3N2: marked;
         edge left2   goto X1Y3N2;
         edge right2  goto X3Y3N2;
         edge up2     goto X2Y2N2;
-    location X3Y3N2:
+    location X3Y3N2: marked;
         edge left2   goto X2Y3N2;
         edge right2  goto X4Y3N2;
         edge up2     goto X3Y2N2;
-    location X4Y3N2:
+    location X4Y3N2: marked;
         edge left2   goto X3Y3N2;
         edge right2  goto X5Y3N2;
         edge up2     goto X4Y2N2;
-    location X5Y3N2:
+    location X5Y3N2: marked;
         edge left2   goto X4Y3N2;
         edge up2     goto X5Y2N2;
 end
