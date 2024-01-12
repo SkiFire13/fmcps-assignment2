@@ -1,5 +1,8 @@
 #let var(s) = math.equation(s.clusters().map(s => [#s]).join([ ]))
 
+#let pre = var("pre")
+#let post = var("post")
+
 #let Position = var("Position")
 #let Battery = var("Battery")
 
@@ -26,6 +29,9 @@
 #let L0 = var("L0")
 #let L6 = var("L6")
 
+#let N1 = var("N1")
+#let N2 = var("N2")
+
 #let requirement(text) = v(0.2em) + h(1em) + [ _ #text _ ]
 
 #set text(size: 12pt, font: "New Computer Modern")
@@ -43,6 +49,10 @@
 
   #text(size: 15pt, "10/01/2024")
 ]
+
+=== Conventions
+
+In this report the notation $pre{x}post$ will be used to mean the string resulting from the concatenation of the literal string $pre$, the value of the variable $x$ and the literal string $post$. For example if $x$ is 1 the string $pre{x}post$ will be $pre 1 post$. Often this will be used with multiple possible values of $x$, sometimes implied.
 
 = Plant definition
 
@@ -110,6 +120,21 @@ The given requirement is already satisfied by the plants due to not having marke
 == Requirement 2
 
 #requirement[ Both rovers must always alternate the use of the charging stations in $(1,1)$ and $(2,4)$ regardless of which is used first. ]
+
+Let the station in position $(1,1)$ be station 1 and the one in position $(4,2)$ be station 2. The given requirement could be translated using the following automata, once for each rover:
+
+// TODO: Show automata
+
+In our case however we cannot properly fill the edges since we cannot distinguish between charging at one station and at the other due to having a single event $charge{i}$ instead of multiple $charge{i}{j}$. Hence we have to create 3 copies of the $Position{i}$ plant states, one for every state in the previous automaton, and use those to know whether at which station the charge is being performed, and either remove or change the destination of the $charge{i}$ edges. More formally, for every state ${S}$ in $Position{i}$ we add three states: ${S}I$, ${S}N1$ and ${S}N2$. For every edge between states ${S 1}$ and ${S 2}$ we add an edge between states ${S 1}{M}$ and ${S 2}{M}$, with $M in {I, N1, N2}$, except for the following edges with $charge{i}$ events:
+- the self-edge in $X1Y1 I$, which is replaced with an edge to $X1Y1 N2$;
+- the self-edge in $X4Y2 I$, which is replaced with an edge to $X4Y2 N1$;
+- the self-edge in $X1Y1 N1$, which is replaced with an edge to $X1Y1 N2$;
+- the self-edge in $X4Y2 N1$, which is removed;
+- the self-edge in $X1Y1 N2$, which is removed;
+- the self-edge in $X4Y2 N2$, which is replaced with an edge to $X4Y2 N1$.
+
+// TODO: number stations
+// TODO: convention for string join
 
 === Optimized version
 
