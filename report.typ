@@ -30,7 +30,7 @@
 
 #align(center)[
   #heading(outlined: false)[
-    Formal Methods for Cyberphysical systems \
+    Formal Methods for Cyberphysical Systems \
     Assignment 2
   ]
 
