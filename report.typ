@@ -1,3 +1,6 @@
+#import "@preview/cetz:0.1.1"
+#import "@preview/finite:0.3.0"
+
 #let var(s) = math.equation(s.clusters().map(s => [#s]).join([ ]))
 
 #let pre = var("pre")
@@ -123,9 +126,21 @@ The given requirement is already satisfied by the plants due to not having marke
 
 Let the station in position $(1,1)$ be station 1 and the one in position $(4,2)$ be station 2. The given requirement could be translated using the following automata, once for each rover:
 
-// TODO: Show automata
+#align(center, cetz.canvas({
+  import finite.draw: *
 
-In our case however we cannot properly fill the edges since we cannot distinguish between charging at one station and at the other due to having a single event $charge{i}$ instead of multiple $charge{i}{j}$. Hence we have to create 3 copies of the $Position{i}$ plant states, one for every state in the previous automaton, and use those to know whether at which station the charge is being performed, and either remove or change the destination of the $charge{i}$ edges. More formally, for every state ${S}$ in $Position{i}$ we add three states: ${S}I$, ${S}N1$ and ${S}N2$. For every edge between states ${S 1}$ and ${S 2}$ we add an edge between states ${S 1}{M}$ and ${S 2}{M}$, with $M in {I, N1, N2}$, except for the following edges with $charge{i}$ events:
+  let state_style = (radius: 1, final: true)
+  state((0, 0), "I", label: [ #h(7pt) $I$ #h(7pt) ], initial: "", ..state_style)
+  state((4.5, 2), "N1", label: $N1$, ..state_style)
+  state((4.5, -2), "N2", label: $N2$, ..state_style)
+
+  transition("I", "N1", label: $charge {i} 2$, curve: 1.2)
+  transition("I", "N2", label: v(2.8em) + $charge {i} 1$, curve: -1.2)
+  transition("N1", "N2", label: $charge {i} 1$)
+  transition("N2", "N1", label: $charge {i} 2$)
+}))
+
+In our case however we cannot properly fill the edges since we cannot distinguish between the station at which we're charging at due to having a single event $charge{i}$ instead of multiple $charge{i}{j}$ like in the figure. Hence we have to create 3 copies of the $Position{i}$ plant states, one for every state in the previous automaton, and use those to know whether at which station the charge is being performed, and either remove or change the destination of the $charge{i}$ edges. More formally, for every state ${S}$ in $Position{i}$ we add three states: ${S}I$, ${S}N1$ and ${S}N2$. For every edge between states ${S 1}$ and ${S 2}$ we add an edge between states ${S 1}{M}$ and ${S 2}{M}$, with $M in {I, N1, N2}$, except for the following edges with $charge{i}$ events:
 - the self-edge in $X1Y1 I$, which is replaced with an edge to $X1Y1 N2$;
 - the self-edge in $X4Y2 I$, which is replaced with an edge to $X4Y2 N1$;
 - the self-edge in $X1Y1 N1$, which is replaced with an edge to $X1Y1 N2$;
@@ -133,13 +148,12 @@ In our case however we cannot properly fill the edges since we cannot distinguis
 - the self-edge in $X1Y1 N2$, which is removed;
 - the self-edge in $X4Y2 N2$, which is replaced with an edge to $X4Y2 N1$.
 
-// TODO: number stations
-// TODO: convention for string join
+This way all the $charge{i}$ edges represent one of the edges in the automata shown above.
 
-=== Optimized version
+=== Compact version
 
 == Requirement 3
 
 #requirement[ Rovers don't collide with each other (i.e., they are never simultaneously on a same tile). ]
 
-=== Optimized version
+=== Compact version
