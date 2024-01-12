@@ -38,6 +38,10 @@ requirement R2_Rover1:
         edge up1     goto X3Y1I;
         edge down1   goto X3Y3I;
     location X4Y2I: marked;
+        edge left1   goto X3Y2I;
+        edge right1  goto X5Y2I;
+        edge up1     goto X4Y1I;
+        edge down1   goto X4Y3I;
         edge charge1 goto X4Y2N1;
     location X5Y2I: marked;
         edge left1   goto X4Y2I;
@@ -63,6 +67,8 @@ requirement R2_Rover1:
         edge up1     goto X5Y2I;
 
     location X1Y1N1: marked;
+        edge right1  goto X2Y1N1;
+        edge down1   goto X1Y2N1;
         edge charge1 goto X1Y1N2;
     location X2Y1N1: marked;
         edge left1   goto X1Y1N1;
@@ -154,6 +160,10 @@ requirement R2_Rover1:
         edge up1     goto X3Y1N2;
         edge down1   goto X3Y3N2;
     location X4Y2N2: marked;
+        edge left1   goto X3Y2N2;
+        edge right1  goto X5Y2N2;
+        edge up1     goto X4Y1N2;
+        edge down1   goto X4Y3N2;
         edge charge1 goto X4Y2N1;
     location X5Y2N2: marked;
         edge left1   goto X4Y2N2;
@@ -181,6 +191,8 @@ end
 
 requirement R2_Rover2:
     location X1Y1I: marked;
+        edge right2  goto X2Y1I;
+        edge down2   goto X1Y2I;
         edge charge2 goto X1Y1N2;
     location X2Y1I: marked;
         edge left2   goto X1Y1I;
@@ -241,6 +253,8 @@ requirement R2_Rover2:
         edge up2     goto X5Y2I;
 
     location X1Y1N1: marked;
+        edge right2  goto X2Y1N1;
+        edge down2   goto X1Y2N1;
         edge charge2 goto X1Y1N2;
     location X2Y1N1: marked;
         edge left2   goto X1Y1N1;
@@ -332,6 +346,10 @@ requirement R2_Rover2:
         edge up2     goto X3Y1N2;
         edge down2   goto X3Y3N2;
     location X4Y2N2: marked;
+        edge left2   goto X3Y2N2;
+        edge right2  goto X5Y2N2;
+        edge up2     goto X4Y1N2;
+        edge down2   goto X4Y3N2;
         edge charge2 goto X4Y2N1;
     location X5Y2N2: marked;
         edge left2   goto X4Y2N2;
