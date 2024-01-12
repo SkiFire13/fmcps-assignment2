@@ -23,6 +23,9 @@
 #let X2Y1 = var("X2Y1")
 #let X2Y3 = var("X2Y1")
 
+#let L0 = var("L0")
+#let L6 = var("L6")
+
 #let requirement(text) = v(0.2em) + h(1em) + [ _ #text _ ]
 
 #set text(size: 12pt, font: "New Computer Modern")
@@ -56,7 +59,7 @@ I made $X1Y1$ the initial state for rover 1 and $X4Y2$ the initial state for rov
 
 === Battery
 
-In each $Battery{i}$ plant I defined a state for each possible battery level, representing the rover's battery currently being at that level. I named the states $L{l}$ where ${l}$ is the current battery level and ranges from 0 to 6. I made $L 6$ the initial state since rovers start fully charged. I marked only $L 6$ since I considered that to be the "stable" state. Other possible choices could have been marking all the non-zero level states, or all the states.
+In each $Battery{i}$ plant I defined a state for each possible battery level, representing the rover's battery currently being at that level. I named the states $L{l}$ where ${l}$ is the current battery level and ranges from 0 to 6. I made $L6$ the initial state since rovers start fully charged. I marked only $L6$ since I considered that to be the "stable" state. Other possible choices could have been marking all the non-zero level states, or all the states.
 
 == Events
 
@@ -94,13 +97,15 @@ I also added self-edges with event $charge{i}$ for the charging in the states $X
 
 === Battery
 
-For the $Battery{i}$ plants I added an edge from every level to the next lower one, that is for every $1 <= l <= 6$ I added an edge for every move $left{i}$, $right{i}$, $up{i}$, $down{i}$, $uleft{i}$, $uright{i}$, $uup{i}$ and $udown{i}$ from the state $L{l}$ to the state $L{l-1}$, representing the decrease in battery level after a move. There's no such edge for the state $L 0$, representing the fact that a rover can't move when its battery runs out of energy. I also added edges for the charging, in particular for every $0 <= l <= 5$ I added an edge with event $charge{i}$ from the state $L{l}$ to the state $L 6$. I choose not to add the edge in the state $L 6$ because it doesn't make sense to charge the battery if it's already charged.
+For the $Battery{i}$ plants I added an edge from every level to the next lower one, that is for every $1 <= l <= 6$ I added an edge for every move $left{i}$, $right{i}$, $up{i}$, $down{i}$, $uleft{i}$, $uright{i}$, $uup{i}$ and $udown{i}$ from the state $L{l}$ to the state $L{l-1}$, representing the decrease in battery level after a move. There's no such edge for the state $L0$, representing the fact that a rover can't move when its battery runs out of energy. I also added edges for the charging, in particular for every $0 <= l <= 5$ I added an edge with event $charge{i}$ from the state $L{l}$ to the state $L6$. I choose not to add the edge in the state $L6$ because it doesn't make sense to charge the battery if it's already charged.
 
 = Requirements
 
 == Requirement 1
 
 #requirement[ Both rovers never run our of battery on tiles that do not have a charging station. ]
+
+The given requirement is already satisfied by the plants due to not having marked the $L0$ states. In general however there exist different markings that are reasonable and don't have this property. In those cases the requirement can be defined by copying the $Battery{i}$ plants and marking all the states except the $L0$ states. In this way any rover that runs out of energy on a non-charging station tile will be stuck on $L0$ due to not being able to charge or move. This means such state is a blocking state and will be pruned by the supervisor synthesis.
 
 == Requirement 2
 
