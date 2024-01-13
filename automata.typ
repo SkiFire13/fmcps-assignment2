@@ -187,21 +187,25 @@
   }
 
   for (s1, s2) in states.zip(states.slice(1)) {
-    transition(s1, s2, label: (text: align(center)[
+    transition(s1, s2, label: (text: align(center, text(size: 10pt)[
       $right 1$ \
       $uright 1$ \
       $left 2$ \
       $uleft 2$
-    ], dist: 1.2))
-    transition(s2, s1, label: (text: align(center)[
+    ]), dist: 0.9))
+    transition(s2, s1, label: (text: align(center, text(size: 10pt)[
       $left 1$ \
       $uleft 1$ \
       $right 2$ \
       $uright 2$
-    ], dist: 1.2))
+    ]), dist: 0.9))
   }
 
-  transition("SX", "SX", label: (text: $sametile$, angle: 90deg, dist: 0.9))
+  transition("SX", "SX", label: (
+    text: text(size: 10pt, $sametile$),
+    angle: 90deg,
+    dist: 0.8
+  ))
 })
 
 #let r3-y = cetz.canvas({
@@ -214,21 +218,25 @@
   }
 
   for (s1, s2) in states.zip(states.slice(1)) {
-    transition(s1, s2, label: (text: align(center)[
+    transition(s1, s2, label: (text: align(center, text(size: 10pt)[
       $down 1$ \
       $udown 1$ \
       $up 2$ \
       $uup 2$
-    ], dist: 1.2))
-    transition(s2, s1, label: (text: align(center)[
+    ]), dist: 0.9))
+    transition(s2, s1, label: (text: align(center, text(size: 10pt)[
       $up 1$ \
       $uup 1$ \
       $down 2$ \
       $udown 2$
-    ], dist: 1.2))
+    ]), dist: 0.9))
   }
 
-  transition("SY", "SY", label: (text: $sametile$, angle: 90deg, dist: 0.9))
+  transition("SY", "SY", label: (
+    text: text(size: 10pt, $sametile$),
+    angle: 90deg,
+    dist: 0.8
+  ))
 })
 
-#let r3-compact = v(1em) + r3-sametile + v(1em) + r3-x + v(1em) + r3-y
+#let r3-compact = v(1em) + r3-sametile + r3-x + r3-y
