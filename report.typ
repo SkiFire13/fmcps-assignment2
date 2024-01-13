@@ -105,7 +105,7 @@ Let the station in position $(1,1)$ be station 1 and the one in position $(4,2)$
 
 #figure(automata.r2-alternate, caption: "Automaton for alternating two events.")
 
-There's however no way to directly express the "at station $j$" edges since we cannot distinguish at which station the $charge{i}$ event was performed. We thus have to also track in which position the rover is currently at, which can be done by creating 3 copies of the $Position{i}$ plant states, one for every state in the automaton in the figure.
+There's however no way to directly express the "at station $j$" edges since we cannot distinguish at which station the $charge{i}$ event was performed. We thus have to also track in which position the rover is currently at, which can be done by creating 3 copies of the $Position{i}$ plant states, one for every state in the automaton in the figure. Given $S_i$ the initial state in $Position{i}$, ${S_i}I$ will be the new initial state. All states will be marked, since this automata is irrelevant for marking.
 
 More formally, for every state ${S}$ in $Position{i}$ we add three states: ${S}I$, ${S}N1$ and ${S}N2$. For every edge between states ${S 1}$ and ${S 2}$ we add an edge between states ${S 1}{M}$ and ${S 2}{M}$ for all $M in {I, N1, N2}$, except for the following edges with $charge{i}$ events:
 - the self-edge in $X1Y1 I$, which is replaced with an edge to $X1Y1 N2$, representing the topmost edge;
@@ -117,8 +117,6 @@ More formally, for every state ${S}$ in $Position{i}$ we add three states: ${S}I
 
 This way all the $charge{i}$ edges represent one of the edges in the automata shown in the figure before.
 
-// TODO: Explain marking
-// TODO: Explain initial state
 // TODO: Show scaled automaton
 
 Unfortunately the automaton doesn't fit in a page, so I'll avoid showing it.
@@ -157,9 +155,10 @@ This ends up requiring the user to specify only 44 states, which scales a bit be
 
 Due to the inability of using the dash character (`-`) in CIF identifiers, I mapped the relative $X$ positions to the names $L 4$, $L 3$, $L 2$, $L 1$, $S X$, $R 1$, $R 2$, $R 3$ and $R 4$, representing rover 1 being on the left ($L{l}$), on the same $X$ ($S X$) or on the right ($R{r}$) of rover 2, and the relative $Y$ positions to the names $U 2$, $U 1$, $S Y$, $D 1$ and $D 2$, representing rover 1 being up ($U{u}$), on the same $Y$ ($S Y$) or down ($D{d}$) relative to rover 2.
 
-// TODO: Automaton
 // TODO: over/under vs up/down?
-#figure(automata.r3, caption: [ Automaton for requirement 3 (events omitted due to lack of space) ])
+#figure(automata.r3, caption: [
+  Automaton for requirement 3 (events omitted due to lack of space)
+])
 
 === Compact version
 

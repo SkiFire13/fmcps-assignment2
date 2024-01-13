@@ -42,29 +42,30 @@
   finite.draw.loop(
     n(4, 2),
     label: (text: text(size: 10pt, $charge #i$), angle: 45deg),
-    curve: 1,
-    anchor: bottom + alignment.left)
+    curve: 1, anchor: bottom + alignment.left
+  )
 })
 
 #let battery(i) = v(2em) + cetz.canvas({
   import finite.draw: *
 
+  state((-2.8 * 2.5, -3), "L6", initial: bottom, final: true)
   for l in range(0, 6) {
     state((-2.8*l, 0), "L" + str(l))
   }
-  state((-2.8 * 2.5, -3), "L6", initial: bottom, final: true)
 
   let label_text = align(center, text(size: 10pt)[
     $left #i$ \ $right #i$ \ $up #i$ \ $down #i$ \
     $uleft #i$ \ $uright #i$ \ $uup #i$ \ $udown #i$
   ])
+
   for l in range(1, 6) {
-    transition(
-      "L" + str(l), "L" + str(l - 1),
-      label: (text: label_text, dist: 2), curve: 0.5,
-    )
+    let label = (text: label_text, dist: 2)
+    transition("L" + str(l), "L" + str(l - 1), label: label, curve: 0.5)
   }
-  transition("L6", "L5", label: (text: label_text, angle: -66deg, dist: 0.6), curve: 1.05)
+
+  let label = (text: label_text, angle: -66deg, dist: 0.6)
+  transition("L6", "L5", label: label, curve: 1.05)
 
   transition("L5", "L6", label: text(size: 10pt, $charge #i$), curve: -0.3)
   transition("L4", "L6", label: text(size: 10pt, $charge #i$), curve: -0.1)
@@ -106,14 +107,10 @@
 
   for n in ("I", "N1", "N2") {
     for y in (1, 2) {
-      transition(
-        "Y" + str(y + 1) + n, "Y" + str(y) + n, curve: 0.5,
-        label: (text: align(center)[ $down #i$ \ $udown #i$ ], dist: 0.6)
-      )
-      transition(
-        "Y" + str(y) + n, "Y" + str(y + 1) + n, curve: 0.5,
-        label: (text: align(center)[ $up #i$ \ $uup #i$ ], dist: 0.6)
-      )
+      let label1 = (text: align(center)[ $up #i$ \ $uup #i$ ], dist: 0.6)
+      let label2 = (text: align(center)[ $down #i$ \ $udown #i$ ], dist: 0.6)
+      transition("Y" + str(y + 1) + n, "Y" + str(y) + n, curve: 0.5, label: label1)
+      transition("Y" + str(y) + n, "Y" + str(y + 1) + n, curve: 0.5, label: label2)
     }
   }
 
@@ -133,37 +130,26 @@
 
   for (x, xs) in xstates.enumerate() {
     for (y, ys) in ystates.enumerate() {
-      if (xs, ys) != ("SX", "SY") {
-        let initial = if (xs, ys) == ("L3", "U1") {
-          (label: "", anchor: top + alignment.left)
-        } else {
-          false
-        }
-        state(
-          (1.8 * x, -1.8 * y), xs + ys,
-          label: mklabel(var(xs + ys)),
-          initial: initial, final: true
-        )
-      }
+      if (xs, ys) == ("SX", "SY") { continue }
+      let initial = (label: "", anchor: top + alignment.left)
+      let initial = if (xs, ys) == ("L3", "U1") { initial } else { false }
+      let style = (label: mklabel(var(xs + ys)), initial: initial, final: true)
+      state((1.8 * x, -1.8 * y), xs + ys, ..style)
     }
   }
 
   for x in xstates {
     for (y1, y2) in ystates.zip(ystates.slice(1)) {
-      let (s1, s2) = (x + y1, x + y2)
-      if s1 != "SXSY" and s2 != "SXSY" {
-        transition(s1, s2, curve: 0.1)
-        transition(s2, s1, curve: 0.1)
-      }
+      if x == "SX" and (y1 == "SY" or y2 == "SY") { continue }
+      transition(x + y1, x + y2, curve: 0.1)
+      transition(x + y2, x + y1, curve: 0.1)
     }
   }
   for y in ystates {
     for (x1, x2) in xstates.zip(xstates.slice(1)) {
-      let (s1, s2) = (x1 + y, x2 + y)
-      if s1 != "SXSY" and s2 != "SXSY" {
-        transition(s1, s2, curve: 0.1)
-        transition(s2, s1, curve: 0.1)
-      }
+      if y == "SY" and (x1 == "SX" or x2 == "SX") { continue }
+      transition(x1 + y, x2 + y, curve: 0.1)
+      transition(x2 + y, x1 + y, curve: 0.1)
     }
   }
 })
@@ -201,7 +187,7 @@
     ]), dist: 0.9))
   }
 
-  transition("SX", "SX", label: (
+  loop("SX", label: (
     text: text(size: 10pt, $sametile$),
     angle: 90deg,
     dist: 0.8
@@ -232,7 +218,7 @@
     ]), dist: 0.9))
   }
 
-  transition("SY", "SY", label: (
+  loop("SY", label: (
     text: text(size: 10pt, $sametile$),
     angle: 90deg,
     dist: 0.8
