@@ -107,13 +107,13 @@ Let the station in position $(1,1)$ be station 1 and the one in position $(4,2)$
 
 There's however no way to directly express the "at station $j$" edges since we cannot distinguish at which station the $charge{i}$ event was performed. We thus have to also track in which position the rover is currently at, which can be done by creating 3 copies of the $Position{i}$ plant states, one for every state in the automaton in the figure.
 
-More formally, for every state ${S}$ in $Position{i}$ we add three states: ${S}I$, ${S}N1$ and ${S}N2$. For every edge between states ${S 1}$ and ${S 2}$ we add an edge between states ${S 1}{M}$ and ${S 2}{M}$, with $M in {I, N1, N2}$, except for the following edges with $charge{i}$ events:
-- the self-edge in $X1Y1 I$, which is replaced with an edge to $X1Y1 N2$;
-- the self-edge in $X4Y2 I$, which is replaced with an edge to $X4Y2 N1$;
-- the self-edge in $X1Y1 N1$, which is replaced with an edge to $X1Y1 N2$;
+More formally, for every state ${S}$ in $Position{i}$ we add three states: ${S}I$, ${S}N1$ and ${S}N2$. For every edge between states ${S 1}$ and ${S 2}$ we add an edge between states ${S 1}{M}$ and ${S 2}{M}$ for all $M in {I, N1, N2}$, except for the following edges with $charge{i}$ events:
+- the self-edge in $X1Y1 I$, which is replaced with an edge to $X1Y1 N2$, representing the topmost edge;
+- the self-edge in $X4Y2 I$, which is replaced with an edge to $X4Y2 N1$, representing the bottommost edge;
+- the self-edge in $X1Y1 N1$, which is replaced with an edge to $X1Y1 N2$, representing the rightmost edge;
 - the self-edge in $X4Y2 N1$, which is removed;
 - the self-edge in $X1Y1 N2$, which is removed;
-- the self-edge in $X4Y2 N2$, which is replaced with an edge to $X4Y2 N1$.
+- the self-edge in $X4Y2 N2$, which is replaced with an edge to $X4Y2 N1$, representing the center edge.
 
 This way all the $charge{i}$ edges represent one of the edges in the automata shown in the figure before.
 
