@@ -158,71 +158,34 @@
   import finite.draw: *
 
   let mklabel(name) = box(width: 1.6em, align(center, text(size: 11pt, name)))
-  state((0, 0), "Valid", radius: 0.8, label: mklabel($Valid$), initial: true, final: true)
+  let valid_style = (initial: true, final: true)
+  state((0, 0), "Valid", radius: 0.8, label: mklabel($Valid$), ..valid_style)
   state((4, 0), "Invalid", radius: 0.8, label: mklabel($Invalid$))
-
   transition("Valid", "Invalid", label: $sametile$, curve: 0.01)
 })
-#let r3-x = cetz.canvas({
+#let r3-xy(states, si, sc, l1, l2) = cetz.canvas({
   import finite.draw: *
 
-  let states = ("L4", "L3", "L2", "L1", "SX", "R1", "R2", "R3", "R4")
   for (i, s) in states.enumerate() {
-    let initial = if s == "L3" { (label: "", anchor: top) } else { false }
+    let initial = if s == si { (label: "", anchor: top) } else { false }
     state((1.8 * i, 0), s, label: var(s), initial: initial, final: true)
   }
 
   for (s1, s2) in states.zip(states.slice(1)) {
-    transition(s1, s2, label: (text: align(center, text(size: 10pt)[
-      $right 1$ \
-      $uright 1$ \
-      $left 2$ \
-      $uleft 2$
-    ]), dist: 0.9))
-    transition(s2, s1, label: (text: align(center, text(size: 10pt)[
-      $left 1$ \
-      $uleft 1$ \
-      $right 2$ \
-      $uright 2$
-    ]), dist: 0.9))
+    transition(s1, s2, label: (text: align(center, text(size: 10pt, l1)), dist: 0.9))
+    transition(s2, s1, label: (text: align(center, text(size: 10pt, l2)), dist: 0.9))
   }
 
-  loop("SX", label: (
-    text: text(size: 10pt, $sametile$),
-    angle: 90deg,
-    dist: 0.8
-  ))
+  loop(sc, label: (text: text(size: 10pt, $sametile$), angle: 90deg, dist: 0.8))
 })
-
-#let r3-y = cetz.canvas({
-  import finite.draw: *
-
-  let states = ("U2", "U1", "SY", "D1", "D2")
-  for (i, s) in states.enumerate() {
-    let initial = if s == "U1" { (label: "", anchor: top) } else { false }
-    state((1.8 * i, 0), s, label: var(s), initial: initial, final: true)
-  }
-
-  for (s1, s2) in states.zip(states.slice(1)) {
-    transition(s1, s2, label: (text: align(center, text(size: 10pt)[
-      $down 1$ \
-      $udown 1$ \
-      $up 2$ \
-      $uup 2$
-    ]), dist: 0.9))
-    transition(s2, s1, label: (text: align(center, text(size: 10pt)[
-      $up 1$ \
-      $uup 1$ \
-      $down 2$ \
-      $udown 2$
-    ]), dist: 0.9))
-  }
-
-  loop("SY", label: (
-    text: text(size: 10pt, $sametile$),
-    angle: 90deg,
-    dist: 0.8
-  ))
-})
-
+#let r3-x = r3-xy(
+  ("L4", "L3", "L2", "L1", "SX", "R1", "R2", "R3", "R4"), "L3", "SX",
+  [ $right 1$ \ $uright 1$ \ $left 2$ \ $uleft 2$ ],
+  [ $left 1$ \ $uleft 1$ \ $right 2$ \ $uright 2$ ],
+)
+#let r3-y = r3-xy(
+  ("U2", "U1", "SY", "D1", "D2"), "U1", "SY",
+  [ $down 1$ \ $udown 1$ \ $up 2$ \ $uup 2$ ],
+  [ $up 1$ \ $uup 1$ \ $down 2$ \ $udown 2$ ],
+)
 #let r3-compact = v(1em) + r3-sametile + r3-x + r3-y
