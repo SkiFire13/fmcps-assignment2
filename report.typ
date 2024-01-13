@@ -1,39 +1,5 @@
-#import "@preview/cetz:0.1.1"
-#import "@preview/finite:0.3.0"
-
-#let var(s) = math.equation(s.clusters().map(s => [#s]).join([ ]))
-
-#let pre = var("pre")
-#let post = var("post")
-
-#let Position = var("Position")
-#let Battery = var("Battery")
-
-#let left = var("left")
-#let right = var("right")
-#let up = var("up")
-#let down = var("down")
-
-#let uleft = var("uleft")
-#let uright = var("uright")
-#let uup = var("uup")
-#let udown = var("udown")
-
-#let charge = var("charge")
-
-#let X1Y1 = var("X1Y1")
-#let X4Y2 = var("X4Y2")
-#let X2Y2 = var("X2Y2")
-#let X1Y2 = var("X1Y2")
-#let X3Y2 = var("X3Y2")
-#let X2Y1 = var("X2Y1")
-#let X2Y3 = var("X2Y1")
-
-#let L0 = var("L0")
-#let L6 = var("L6")
-
-#let N1 = var("N1")
-#let N2 = var("N2")
+#import "automata.typ"
+#import "defs.typ": *
 
 #let requirement(text) = v(0.2em) + h(1em) + [ _ #text _ ]
 
@@ -112,35 +78,34 @@ I also added self-edges with event $charge{i}$ for the charging in the states $X
 
 For the $Battery{i}$ plants I added an edge from every level to the next lower one, that is for every $1 <= l <= 6$ I added an edge for every move $left{i}$, $right{i}$, $up{i}$, $down{i}$, $uleft{i}$, $uright{i}$, $uup{i}$ and $udown{i}$ from the state $L{l}$ to the state $L{l-1}$, representing the decrease in battery level after a move. There's no such edge for the state $L0$, representing the fact that a rover can't move when its battery runs out of energy. I also added edges for the charging, in particular for every $0 <= l <= 5$ I added an edge with event $charge{i}$ from the state $L{l}$ to the state $L6$. I choose not to add the edge in the state $L6$ because it doesn't make sense to charge the battery if it's already charged.
 
+== Automata
+
+#figure(automata.position(1), caption: [ Plant $Position 1$ ])
+#figure(automata.battery(1), caption: [ Plant $Battery 1$ ])
+#figure(automata.position(2), caption: [ Plant $Position 2$ ])
+#figure(automata.battery(2), caption: [ Plant $Battery 2$ ])
+
 = Requirements
 
 == Requirement 1
 
 #requirement[ Both rovers never run our of battery on tiles that do not have a charging station. ]
 
-The given requirement is already satisfied by the plants due to not having marked the $L0$ states. In general however there exist different markings that are reasonable and don't have this property. In those cases the requirement can be defined by copying the $Battery{i}$ plants and marking all the states except the $L0$ states. In this way any rover that runs out of energy on a non-charging station tile will be stuck on $L0$ due to not being able to charge or move. This means such state is a blocking state and will be pruned by the supervisor synthesis.
+The requirement can be defined by copying the $Battery{i}$ plants and updating their marking so that the state $L0$ is not marked. This way any rover that runs out of energy on a non-charging station tile will be stuck on state $L0$ due to not being able to charge or move. This means such state is a blocking state and will be pruned by the supervisor synthesis.
+
+In the case of our chosen marking, $L0$ is already not marked, so this requirement is redundant.
 
 == Requirement 2
 
 #requirement[ Both rovers must always alternate the use of the charging stations in $(1,1)$ and $(2,4)$ regardless of which is used first. ]
 
-Let the station in position $(1,1)$ be station 1 and the one in position $(4,2)$ be station 2. The given requirement could be translated using the following automata, once for each rover:
+Let the station in position $(1,1)$ be station 1 and the one in position $(4,2)$ be station 2. The given requirement could be translated using the following automata, once for each rover, where $I$ represent the initial state when no charging station has been used by rover $i$, and $N1$ and $N2$ represent the states where the next charging station that has to be used are respectively station 1 and 2.
 
-#align(center, cetz.canvas({
-  import finite.draw: *
+#figure(automata.alternate, caption: "Automaton alternating two events.")
 
-  let state_style = (radius: 1, final: true)
-  state((0, 0), "I", label: [ #h(7pt) $I$ #h(7pt) ], initial: "", ..state_style)
-  state((4.5, 2), "N1", label: $N1$, ..state_style)
-  state((4.5, -2), "N2", label: $N2$, ..state_style)
+There's however no way to directly express the "at station $j$" edges since we cannot distinguish at which station the $charge{i}$ event was performed. We thus have to also track in which position the rover is currently at, which can be done by creating 3 copies of the $Position{i}$ plant states, one for every state in the automaton in the figure.
 
-  transition("I", "N1", label: $charge {i} 2$, curve: 1.2)
-  transition("I", "N2", label: v(2.8em) + $charge {i} 1$, curve: -1.2)
-  transition("N1", "N2", label: $charge {i} 1$)
-  transition("N2", "N1", label: $charge {i} 2$)
-}))
-
-In our case however we cannot properly fill the edges since we cannot distinguish between the station at which we're charging at due to having a single event $charge{i}$ instead of multiple $charge{i}{j}$ like in the figure. Hence we have to create 3 copies of the $Position{i}$ plant states, one for every state in the previous automaton, and use those to know whether at which station the charge is being performed, and either remove or change the destination of the $charge{i}$ edges. More formally, for every state ${S}$ in $Position{i}$ we add three states: ${S}I$, ${S}N1$ and ${S}N2$. For every edge between states ${S 1}$ and ${S 2}$ we add an edge between states ${S 1}{M}$ and ${S 2}{M}$, with $M in {I, N1, N2}$, except for the following edges with $charge{i}$ events:
+More formally, for every state ${S}$ in $Position{i}$ we add three states: ${S}I$, ${S}N1$ and ${S}N2$. For every edge between states ${S 1}$ and ${S 2}$ we add an edge between states ${S 1}{M}$ and ${S 2}{M}$, with $M in {I, N1, N2}$, except for the following edges with $charge{i}$ events:
 - the self-edge in $X1Y1 I$, which is replaced with an edge to $X1Y1 N2$;
 - the self-edge in $X4Y2 I$, which is replaced with an edge to $X4Y2 N1$;
 - the self-edge in $X1Y1 N1$, which is replaced with an edge to $X1Y1 N2$;
@@ -148,9 +113,26 @@ In our case however we cannot properly fill the edges since we cannot distinguis
 - the self-edge in $X1Y1 N2$, which is removed;
 - the self-edge in $X4Y2 N2$, which is replaced with an edge to $X4Y2 N1$.
 
-This way all the $charge{i}$ edges represent one of the edges in the automata shown above.
+This way all the $charge{i}$ edges represent one of the edges in the automata shown in the figure before.
+
+Unfortunately the automaton doesn't fit in a page, so I'll avoid showing it.
 
 === Compact version
+
+We can exploit the structure of the problem to reduce the number of states we have to manually declare. There are in fact only 2 stations, so they must differ in either their X or Y coordinate. We can then only track that coordinate instead of both of them, and that will be enough to distinguish the two $charge{i}$ cases because at most one charging station exists for a given coordinate value. In our case the charging stations positions differ by both coordinates, so we can pick the one with fewer cases to track, which is Y. We thus have 9 states: $Y{y}{M}$ for $1 <= y <= 3$ and $M in { I, N1, N2 }$ and the following edges:
+- for $y in {1, 2}, M in {I, N1, N2}$ an edge with events $up{i}$ and $uup{i}$ from $Y{y}M$ to $Y{y+1}M$;
+- for $y in {2, 3}, M in {I, N1, N2}$ an edge with events $down{i}$ and $udown{i}$ from $Y{y}M$ to $Y{y-1}M$;
+- an edge with event $charge{i}$ from $Y 1 I$ to $Y 1 N2$;
+- an edge with event $charge{i}$ from $Y 2 I$ to $Y 2 N1$;
+- an edge with event $charge{i}$ from $Y 1 N1$ to $Y 1 N2$;
+- an edge with event $charge{i}$ from $Y 2 N2$ to $Y 2 N1$.
+
+#for i in (1, 2) {
+  figure(
+    automata.alternate-compact(i),
+    caption: [ Automaton for requirement $R 2\_#i$ ]
+  )
+}
 
 == Requirement 3
 
