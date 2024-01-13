@@ -144,4 +144,29 @@ We can exploit the structure of the problem to reduce the number of states we ha
 
 #requirement[ Rovers don't collide with each other (i.e., they are never simultaneously on a same tile). ]
 
+The given requirement could be translated by computing the synchronous product of $Position 1$ and $Position 2$ and removing all the nodes where the state from $Position 1$ and the one from $Position 2$ have the same name, that is when Rover 1 is on the same tile as Rover 2. Unfortunately this doesn't scale well, it produces 210 states which I considered too many for a human to quickly verify their correctness.
+
+Another, more compact, approach is to track the relative position of the two rovers. There are 9 possible relative positions $x_1 - x_2$ on the $X$ axis, from $-4$ to $4$ and 5 possible relative positions $y_1 - y_2$ on the $Y$ axis, from $-2$ to $2$.
+
+Due to the inability of using the dash character (`-`) in CIF identifiers, I mapped the relative $X$ positions to the names $L 4$, $L 3$, $L 2$, $L 1$, $S X$, $R 1$, $R 2$, $R 3$ and $R 4$, representing rover 1 being on the left ($L{l}$), on the same $X$ ($S X$) or on the right ($R{r}$) of rover 2, and the relative $Y$ positions to the names $U 2$, $U 1$, $S Y$, $D 1$ and $D 2$, representing rover 1 being up ($U{u}$), on the same $Y$ ($S Y$) or down ($D{d}$) relative to rover 2.
+
+Then the effects of the events on them are:
+- $left 1$, $uleft 1$, $right 2$ and $uright 2$ decrease the relative $X$ position;
+- $right 1$, $uright 1$, $left 2$ and $uleft 2$ increase the relative $X$ position;
+- $up 1$, $uup 1$, $down 2$ and $udown 2$ decrease the relative $Y$ position;
+- $down 1$, $udown 1$, $up 2$ and $uup 2$ increase the relative $Y$ position.
+
+These give rise to two automata whose synchronous product tracks the full relative position of the two rovers. To satisfy the requirement is then sufficient to remove the state corresponding to the relative position on both axes being 0, which represents the two rovers being on the same tile. Then the initial state is $L 3 U 1$, and all states have been marked due to marking not being influential in this requirement.
+
+This ends up requiring the user to specify only 44 states, which scales a bit better.
+
+// TODO: Automaton
+// TODO: over/under vs up/down?
+
 === Compact version
+
+If we allow the introduction of a new uncontrollable event $sametile$ we can create an even more compact requirement automaton. This event will never happen, in fact it will be used to have the supervisor remove any state that can perform this event. The way this is done is by creating an automaton with two states, an initial marked state $Valid$ and another unmarked state $Invalid$, with a single edge with event $sametile$ from $Valid$ to $Invalid$. This way if the $sametile$ event ever happens it will lead to a blocking state and thus the supervisor will have to trim it; moreover since it is uncontrollable it will have to trim any state that can execute it or can reach it with uncontrollable events.
+
+Then we can keep the two automata for the relative $X$ and $Y$ positions separate, and add a self-loop with event $sametile$ on the states $S X$ and $S Y$. This way if the rovers are in the same position, that is the two automata are in the states $S X$ and $S Y$, they will be able to perform the event $sametile$ and reach a blocking state, hence the supervisor will remove this state for us.
+
+// TODO: Automaton

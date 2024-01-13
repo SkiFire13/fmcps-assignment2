@@ -31,3 +31,7 @@
 
 #let N1 = var("N1")
 #let N2 = var("N2")
+
+#let sametile = var("sametile")
+#let Valid = var("Valid")
+#let Invalid = var("Invalid")
