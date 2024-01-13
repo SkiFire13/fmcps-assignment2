@@ -123,6 +123,51 @@
   transition("Y2N2", "Y2N1", label: $charge #i$, curve: 0)
 })
 
+#let r3 = cetz.canvas({
+  import finite.draw: *
+
+  let mklabel(name) = box(width: 1.6em, align(center, text(size: 10pt, name)))
+
+  let xstates = ("L4", "L3", "L2", "L1", "SX", "R1", "R2", "R3", "R4")
+  let ystates = ("U2", "U1", "SY", "D1", "D2")
+
+  for (x, xs) in xstates.enumerate() {
+    for (y, ys) in ystates.enumerate() {
+      if (xs, ys) != ("SX", "SY") {
+        let initial = if (xs, ys) == ("L3", "U1") {
+          (label: "", anchor: top + alignment.left)
+        } else {
+          false
+        }
+        state(
+          (1.8 * x, -1.8 * y), xs + ys,
+          label: mklabel(var(xs + ys)),
+          initial: initial, final: true
+        )
+      }
+    }
+  }
+
+  for x in xstates {
+    for (y1, y2) in ystates.zip(ystates.slice(1)) {
+      let (s1, s2) = (x + y1, x + y2)
+      if s1 != "SXSY" and s2 != "SXSY" {
+        transition(s1, s2, curve: 0.1)
+        transition(s2, s1, curve: 0.1)
+      }
+    }
+  }
+  for y in ystates {
+    for (x1, x2) in xstates.zip(xstates.slice(1)) {
+      let (s1, s2) = (x1 + y, x2 + y)
+      if s1 != "SXSY" and s2 != "SXSY" {
+        transition(s1, s2, curve: 0.1)
+        transition(s2, s1, curve: 0.1)
+      }
+    }
+  }
+})
+
 #let r3-sametile = cetz.canvas({
   import finite.draw: *
 

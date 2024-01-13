@@ -146,22 +146,20 @@ We can exploit the structure of the problem to reduce the number of states we ha
 
 The given requirement could be translated by computing the synchronous product of $Position 1$ and $Position 2$ and removing all the nodes where the state from $Position 1$ and the one from $Position 2$ have the same name, that is when Rover 1 is on the same tile as Rover 2. Unfortunately this doesn't scale well, it produces 210 states which I considered too many for a human to quickly verify their correctness.
 
-Another, more compact, approach is to track the relative position of the two rovers. There are 9 possible relative positions $x_1 - x_2$ on the $X$ axis, from $-4$ to $4$ and 5 possible relative positions $y_1 - y_2$ on the $Y$ axis, from $-2$ to $2$.
+Another, more compact, approach is to track the relative position of the two rovers. There are 9 possible relative positions $x_1 - x_2$ on the $X$ axis, from $-4$ to $4$ and 5 possible relative positions $y_1 - y_2$ on the $Y$ axis, from $-2$ to $2$. These will be the states of 2 automatas, while their edges will be:
+- for all $-3 <= d x <= 4$, an edge with events $left 1$, $uleft 1$, $right 2$ and $uright 2$ from $d x$ to $d x - 1$;
+- for all $-4 <= d x <= 3$, an edge with events $right 1$, $uright 1$, $left 2$ and $uleft 2$ from $d x$ to $d x + 1$;
+- for all $-1 <= d y <= 2$, an edge with events $up 1$, $uup 1$, $down 2$ and $udown 2$ from $d y$ to $d y - 1$;
+- for all $-1 <= d y <= 2$, an edge with events $down 1$, $udown 1$, $up 2$ and $uup 2$ from $d y$ to $d y + 1$.
+
+The initial states are $-3$ and $-1$, because those are differences of the initial coordinates of the rovers. All states have been marked, since these automata are irrelevant to marking. To satisfy the requirement it's then sufficient to compute the synchronous product of the two automata, remove the state corresponding to the relative position on both axes being 0, which represents the two rovers being on the same tile.
+This ends up requiring the user to specify only 44 states, which scales a bit better.
 
 Due to the inability of using the dash character (`-`) in CIF identifiers, I mapped the relative $X$ positions to the names $L 4$, $L 3$, $L 2$, $L 1$, $S X$, $R 1$, $R 2$, $R 3$ and $R 4$, representing rover 1 being on the left ($L{l}$), on the same $X$ ($S X$) or on the right ($R{r}$) of rover 2, and the relative $Y$ positions to the names $U 2$, $U 1$, $S Y$, $D 1$ and $D 2$, representing rover 1 being up ($U{u}$), on the same $Y$ ($S Y$) or down ($D{d}$) relative to rover 2.
 
-Then the effects of the events on them are:
-- $left 1$, $uleft 1$, $right 2$ and $uright 2$ decrease the relative $X$ position;
-- $right 1$, $uright 1$, $left 2$ and $uleft 2$ increase the relative $X$ position;
-- $up 1$, $uup 1$, $down 2$ and $udown 2$ decrease the relative $Y$ position;
-- $down 1$, $udown 1$, $up 2$ and $uup 2$ increase the relative $Y$ position.
-
-These give rise to two automata whose synchronous product tracks the full relative position of the two rovers. To satisfy the requirement is then sufficient to remove the state corresponding to the relative position on both axes being 0, which represents the two rovers being on the same tile. Then the initial state is $L 3 U 1$, and all states have been marked due to marking not being influential in this requirement.
-
-This ends up requiring the user to specify only 44 states, which scales a bit better.
-
 // TODO: Automaton
 // TODO: over/under vs up/down?
+#figure(automata.r3, caption: [ Automaton for requirement 3 (events omitted due to lack of space) ])
 
 === Compact version
 
