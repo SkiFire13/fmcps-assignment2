@@ -136,7 +136,7 @@ We can exploit the structure of the problem to reduce the number of states we ha
 #for i in (1, 2) {
   figure(
     automata.alternate-compact(i),
-    caption: [ Automaton for requirement $R 2\_#i$ ]
+    caption: [ Rover #i's automaton for requirement $R 2$ ]
   )
 }
 

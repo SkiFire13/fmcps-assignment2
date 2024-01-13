@@ -96,11 +96,11 @@
 
   for y in range(1, 3+1) {
     let name = "Y" + str(y) + "I"
-    state((0, 6 - 3 * y), name, label: mklabel(name), initial: y == i, final: true)
+    state((0, -3 * y), name, label: mklabel(name), initial: y == i, final: true)
 
     for (i, n) in ("N1", "N2").enumerate() {
       let name = "Y" + str(y) + n
-      state((3 * y + 2, 4 * i - 2), name, label: mklabel(name), final: true)
+      state((4 * (i + 1), -3 * y), name, label: mklabel(name), final: true)
     }
   }
 
@@ -117,8 +117,8 @@
     }
   }
 
-  transition("Y1I", "Y1N2", label: $charge #i$)
-  transition("Y2I", "Y2N1", label: $charge #i$ + h(4em), curve: 0)
+  transition("Y1I", "Y1N2", label: $charge #i$, curve: 1)
+  transition("Y2I", "Y2N1", label: $charge #i$, curve: 0.01)
   transition("Y1N1", "Y1N2", label: $charge #i$, curve: 0)
   transition("Y2N2", "Y2N1", label: $charge #i$, curve: 0)
 })
