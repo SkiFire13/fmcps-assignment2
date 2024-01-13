@@ -121,15 +121,4 @@
   transition("Y2I", "Y2N1", label: $charge #i$ + h(4em), curve: 0)
   transition("Y1N1", "Y1N2", label: $charge #i$, curve: 0)
   transition("Y2N2", "Y2N1", label: $charge #i$, curve: 0)
-
-  // let state_style = (radius: 1, final: true)
-  // state((0, 0), "I", label: [ #h(8pt) $I$ #h(8pt) ], initial: "", ..state_style)
-  // state((4.5, 2), "N1", label: $N1$, ..state_style)
-  // state((4.5, -2), "N2", label: $N2$, ..state_style)
-
-  // let chargei(j) = align(center)[ $charge{i}$ \ at station #j #v(1.2em) ]
-  // transition("I", "N1", label: chargei(2), curve: 1.2)
-  // transition("I", "N2", label: v(5.6em) + chargei(1), curve: -1.2)
-  // transition("N1", "N2", label: chargei(1))
-  // transition("N2", "N1", label: chargei(2))
 })
