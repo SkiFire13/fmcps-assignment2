@@ -156,9 +156,7 @@ This ends up requiring the user to specify only 44 states, which scales a bit be
 Due to the inability of using the dash character (`-`) in CIF identifiers, I mapped the relative $X$ positions to the names $L 4$, $L 3$, $L 2$, $L 1$, $S X$, $R 1$, $R 2$, $R 3$ and $R 4$, representing rover 1 being on the left ($L{l}$), on the same $X$ ($S X$) or on the right ($R{r}$) of rover 2, and the relative $Y$ positions to the names $U 2$, $U 1$, $S Y$, $D 1$ and $D 2$, representing rover 1 being up ($U{u}$), on the same $Y$ ($S Y$) or down ($D{d}$) relative to rover 2.
 
 // TODO: over/under vs up/down?
-#figure(automata.r3, caption: [
-  Automaton for requirement 3 (events omitted due to lack of space)
-])
+#figure(automata.r3, caption: [ Automaton for requirement 3 ])
 
 === Compact version
 

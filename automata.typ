@@ -13,8 +13,8 @@
   for x in range(xmin, xmax+1) {
     for y in range(ymin, ymax+1) {
       let initial = false
-      if i == 1 and (x, y) == (1, 1) { initial = alignment.left }
-      if i == 2 and (x, y) == (4, 2) { initial = top + alignment.left }
+      if (i, x, y) == (1, 1, 1) { initial = (text: "", anchor: alignment.left) }
+      if (i, x, y) == (2, 4, 2) { initial = (text: "", anchor: top + alignment.left) }
       state(
         (3.5 * x, -3.5 * y), n(x, y),
         label: box(width: 1.6em, align(center, n(x, y))),
@@ -38,18 +38,15 @@
     }
   }
 
-  transition(n(1, 1), n(1, 1), $charge #i$, curve: 0.5)
-  finite.draw.loop(
-    n(4, 2),
-    label: (text: text(size: 10pt, $charge #i$), angle: 45deg),
-    curve: 1, anchor: bottom + alignment.left
-  )
+  loop(n(1, 1), label: $charge #i$, curve: 0.5)
+  let label = (text: text(size: 10pt, $charge #i$), angle: 45deg)
+  finite.draw.loop(n(4, 2), label: label, curve: 1, anchor: bottom + alignment.left)
 })
 
 #let battery(i) = v(2em) + cetz.canvas({
   import finite.draw: *
 
-  state((-2.8 * 2.5, -3), "L6", initial: bottom, final: true)
+  state((-2.8 * 2.5, -3), "L6", initial: (text: "", anchor: bottom), final: true)
   for l in range(0, 6) {
     state((-2.8*l, 0), "L" + str(l))
   }
@@ -78,16 +75,18 @@
 #let r2-alternate = v(1em) + cetz.canvas({
   import finite.draw: *
 
-  let state_style = (radius: 1, final: true)
-  state((0, 0), "I", label: [ #h(8pt) $I$ #h(8pt) ], initial: "", ..state_style)
-  state((4.5, 2), "N1", label: $N1$, ..state_style)
-  state((4.5, -2), "N2", label: $N2$, ..state_style)
+  let mklabel(name) = box(width: 1.6em, align(center, text(size: 10pt, name)))
 
-  let chargei(j) = align(center)[ $charge{i}$ \ at station #j #v(1.2em) ]
-  transition("I", "N1", label: chargei(2), curve: 1.2)
-  transition("I", "N2", label: v(5.6em) + chargei(1), curve: -1.2)
-  transition("N1", "N2", label: chargei(1))
-  transition("N2", "N1", label: chargei(2))
+  let state_style = (radius: 0.7, final: true)
+  state((0, 0), "I", label: mklabel($I$), initial: "", ..state_style)
+  state((3, 1.5), "N1", label: mklabel($N1$), ..state_style)
+  state((3, -1.5), "N2", label: mklabel($N2$), ..state_style)
+
+  let chargei(j) = align(center, text(size: 9pt)[ $charge{i}$ \ at station #j ])
+  transition("I", "N1", label: (text: chargei(2), dist: 0.5), curve: 0.85)
+  transition("I", "N2", label: (text: chargei(1), dist: -0.5), curve: -0.85)
+  transition("N1", "N2", label: (text: chargei(1), dist: 0.5, angle: 90deg))
+  transition("N2", "N1", label: (text: chargei(2), dist: 0.5))
 })
 
 #let r2-alternate-compact(i) = v(1em) + cetz.canvas({
@@ -97,7 +96,8 @@
 
   for y in range(1, 3+1) {
     let name = "Y" + str(y) + "I"
-    state((0, -3 * y), name, label: mklabel(name), initial: y == i, final: true)
+    let initial = if y == i { "" } else { false }
+    state((0, -3 * y), name, label: mklabel(name), initial: initial, final: true)
 
     for (i, n) in ("N1", "N2").enumerate() {
       let name = "Y" + str(y) + n
@@ -127,6 +127,12 @@
 
   let xstates = ("L4", "L3", "L2", "L1", "SX", "R1", "R2", "R3", "R4")
   let ystates = ("U2", "U1", "SY", "D1", "D2")
+  let label(l) = align(center, text(size: 2pt, l))
+  let l1 = label[ $right 1$ \ $uright 1$ \ $left 2$ \ $uleft 2$ ]
+  let l2 = label[ $left 1$ \ $uleft 1$ \ $right 2$ \ $uright 2$ ]
+  let l3 = label[ $down 1$ \ $udown 1$ \ $up 2$ \ $uup 2$ ]
+  let l4 = label[ $up 1$ \ $uup 1$ \ $down 2$ \ $udown 2$ ]
+  let (l1, l2, l3, l4) = ("", "", "", "") // TODO: remove
 
   for (x, xs) in xstates.enumerate() {
     for (y, ys) in ystates.enumerate() {
@@ -138,18 +144,18 @@
     }
   }
 
-  for x in xstates {
-    for (y1, y2) in ystates.zip(ystates.slice(1)) {
-      if x == "SX" and (y1 == "SY" or y2 == "SY") { continue }
-      transition(x + y1, x + y2, curve: 0.1)
-      transition(x + y2, x + y1, curve: 0.1)
-    }
-  }
   for y in ystates {
     for (x1, x2) in xstates.zip(xstates.slice(1)) {
       if y == "SY" and (x1 == "SX" or x2 == "SX") { continue }
-      transition(x1 + y, x2 + y, curve: 0.1)
-      transition(x2 + y, x1 + y, curve: 0.1)
+      transition(x1 + y, x2 + y, label: l1, curve: 0.1)
+      transition(x2 + y, x1 + y, label: l2, curve: 0.1)
+    }
+  }
+  for x in xstates {
+    for (y1, y2) in ystates.zip(ystates.slice(1)) {
+      if x == "SX" and (y1 == "SY" or y2 == "SY") { continue }
+      transition(x + y1, x + y2, label: l3, curve: 0.1)
+      transition(x + y2, x + y1, label: l2, curve: 0.1)
     }
   }
 })
@@ -158,7 +164,7 @@
   import finite.draw: *
 
   let mklabel(name) = box(width: 1.6em, align(center, text(size: 11pt, name)))
-  let valid_style = (initial: true, final: true)
+  let valid_style = (initial: "", final: true)
   state((0, 0), "Valid", radius: 0.8, label: mklabel($Valid$), ..valid_style)
   state((4, 0), "Invalid", radius: 0.8, label: mklabel($Invalid$))
   transition("Valid", "Invalid", label: $sametile$, curve: 0.01)
