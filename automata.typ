@@ -14,7 +14,7 @@
     for y in range(ymin, ymax+1) {
       let initial = false
       if i == 1 and (x, y) == (1, 1) { initial = alignment.left }
-      if i == 2 and (x, y) == (4, 2) { initial = bottom + alignment.right }
+      if i == 2 and (x, y) == (4, 2) { initial = top + alignment.left }
       state(
         (3.5 * x, -3.5 * y), n(x, y),
         label: box(width: 1.6em, align(center, n(x, y))),
