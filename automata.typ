@@ -54,10 +54,10 @@
   }
   state((-2.8 * 2.5, -3), "L6", initial: bottom, final: true)
 
-  let label_text = text(size: 10pt)[
+  let label_text = align(center, text(size: 10pt)[
     $left #i$ \ $right #i$ \ $up #i$ \ $down #i$ \
     $uleft #i$ \ $uright #i$ \ $uup #i$ \ $udown #i$
-  ]
+  ])
   for l in range(1, 6) {
     transition(
       "L" + str(l), "L" + str(l - 1),
@@ -74,7 +74,7 @@
   transition("L0", "L6", label: text(size: 10pt, $charge #i$), curve: 1)
 })
 
-#let alternate = v(1em) + cetz.canvas({
+#let r2-alternate = v(1em) + cetz.canvas({
   import finite.draw: *
 
   let state_style = (radius: 1, final: true)
@@ -89,7 +89,7 @@
   transition("N2", "N1", label: chargei(2))
 })
 
-#let alternate-compact(i) = v(1em) + cetz.canvas({
+#let r2-alternate-compact(i) = v(1em) + cetz.canvas({
   import finite.draw: *
 
   let mklabel(name) = box(width: 1.6em, align(center, name))
@@ -108,11 +108,11 @@
     for y in (1, 2) {
       transition(
         "Y" + str(y + 1) + n, "Y" + str(y) + n, curve: 0.5,
-        label: (text: [ $down #i$ \ $udown #i$ ], dist: 0.6)
+        label: (text: align(center)[ $down #i$ \ $udown #i$ ], dist: 0.6)
       )
       transition(
         "Y" + str(y) + n, "Y" + str(y + 1) + n, curve: 0.5,
-        label: (text: [ $up #i$ \ $uup #i$ ], dist: 0.6)
+        label: (text: align(center)[ $up #i$ \ $uup #i$ ], dist: 0.6)
       )
     }
   }
@@ -122,3 +122,68 @@
   transition("Y1N1", "Y1N2", label: $charge #i$, curve: 0)
   transition("Y2N2", "Y2N1", label: $charge #i$, curve: 0)
 })
+
+#let r3-sametile = cetz.canvas({
+  import finite.draw: *
+
+  let mklabel(name) = box(width: 1.6em, align(center, text(size: 11pt, name)))
+  state((0, 0), "Valid", radius: 0.8, label: mklabel($Valid$), initial: true, final: true)
+  state((4, 0), "Invalid", radius: 0.8, label: mklabel($Invalid$))
+
+  transition("Valid", "Invalid", label: $sametile$, curve: 0.01)
+})
+#let r3-x = cetz.canvas({
+  import finite.draw: *
+
+  let states = ("L4", "L3", "L2", "L1", "SX", "R1", "R2", "R3", "R4")
+  for (i, s) in states.enumerate() {
+    let initial = if s == "L3" { (label: "", anchor: top) } else { false }
+    state((1.8 * i, 0), s, label: var(s), initial: initial, final: true)
+  }
+
+  for (s1, s2) in states.zip(states.slice(1)) {
+    transition(s1, s2, label: (text: align(center)[
+      $right 1$ \
+      $uright 1$ \
+      $left 2$ \
+      $uleft 2$
+    ], dist: 1.2))
+    transition(s2, s1, label: (text: align(center)[
+      $left 1$ \
+      $uleft 1$ \
+      $right 2$ \
+      $uright 2$
+    ], dist: 1.2))
+  }
+
+  transition("SX", "SX", label: (text: $sametile$, angle: 90deg, dist: 0.9))
+})
+
+#let r3-y = cetz.canvas({
+  import finite.draw: *
+
+  let states = ("U2", "U1", "SY", "D1", "D2")
+  for (i, s) in states.enumerate() {
+    let initial = if s == "U1" { (label: "", anchor: top) } else { false }
+    state((1.8 * i, 0), s, label: var(s), initial: initial, final: true)
+  }
+
+  for (s1, s2) in states.zip(states.slice(1)) {
+    transition(s1, s2, label: (text: align(center)[
+      $down 1$ \
+      $udown 1$ \
+      $up 2$ \
+      $uup 2$
+    ], dist: 1.2))
+    transition(s2, s1, label: (text: align(center)[
+      $up 1$ \
+      $uup 1$ \
+      $down 2$ \
+      $udown 2$
+    ], dist: 1.2))
+  }
+
+  transition("SY", "SY", label: (text: $sametile$, angle: 90deg, dist: 0.9))
+})
+
+#let r3-compact = v(1em) + r3-sametile + v(1em) + r3-x + v(1em) + r3-y

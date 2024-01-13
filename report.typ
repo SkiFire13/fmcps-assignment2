@@ -103,7 +103,7 @@ In the case of our chosen marking, $L0$ is already not marked, so this requireme
 
 Let the station in position $(1,1)$ be station 1 and the one in position $(4,2)$ be station 2. The given requirement could be translated using the following automata, once for each rover, where $I$ represent the initial state when no charging station has been used by rover $i$, and $N1$ and $N2$ represent the states where the next charging station that has to be used are respectively station 1 and 2.
 
-#figure(automata.alternate, caption: "Automaton alternating two events.")
+#figure(automata.r2-alternate, caption: "Automaton for alternating two events.")
 
 There's however no way to directly express the "at station $j$" edges since we cannot distinguish at which station the $charge{i}$ event was performed. We thus have to also track in which position the rover is currently at, which can be done by creating 3 copies of the $Position{i}$ plant states, one for every state in the automaton in the figure.
 
@@ -135,8 +135,8 @@ We can exploit the structure of the problem to reduce the number of states we ha
 
 #for i in (1, 2) {
   figure(
-    automata.alternate-compact(i),
-    caption: [ Rover #i's automaton for requirement $R 2$ ]
+    automata.r2-alternate-compact(i),
+    caption: [ Rover #i's compact automaton for requirement $R 2$ ]
   )
 }
 
@@ -169,4 +169,4 @@ If we allow the introduction of a new uncontrollable event $sametile$ we can cre
 
 Then we can keep the two automata for the relative $X$ and $Y$ positions separate, and add a self-loop with event $sametile$ on the states $S X$ and $S Y$. This way if the rovers are in the same position, that is the two automata are in the states $S X$ and $S Y$, they will be able to perform the event $sametile$ and reach a blocking state, hence the supervisor will remove this state for us.
 
-// TODO: Automaton
+#figure(automata.r3-compact, caption: [ Compact automata for requirement 3 ])
