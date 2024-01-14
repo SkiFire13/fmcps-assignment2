@@ -114,7 +114,7 @@
         }
         state(
           (bx + scale * x, by + -scale * y), n(x, y, suf),
-          label: box(width: 1em, align(center, text(size: 6pt, n(x, y, suf)))),
+          label: box(width: 1em, align(center, text(size: 5.5pt, n(x, y, suf)))),
           radius: 0.5, initial: initial, final: true
         )
       }
@@ -180,7 +180,7 @@
 #let r3 = cetz.canvas({
   import finite.draw: *
 
-  let mklabel(name) = box(width: 1.6em, align(center, text(size: 10pt, name)))
+  let mklabel(name) = box(width: 1.6em, align(center, text(size: 9.5pt, name)))
 
   let xstates = ("L4", "L3", "L2", "L1", "SX", "R1", "R2", "R3", "R4")
   let ystates = ("U2", "U1", "SY", "D1", "D2")
