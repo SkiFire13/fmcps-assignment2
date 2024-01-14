@@ -136,12 +136,12 @@
     }
   }
 
-  pos(0, 0, "I")
+  pos(0, scale*1.5, "I")
   pos(scale*5, 0, "N1")
   pos(scale*5, scale*3, "N2")
 
   transition(n(1, 1, "I"), n(1, 1, "N2"), $charge #i$, curve: 1)
-  transition(n(4, 2, "I"), n(4, 2, "N1"), $charge #i$, curve: 0.6)
+  transition(n(4, 2, "I"), n(4, 2, "N1"), $charge #i$, curve: -0.3)
   transition(n(1, 1, "N1"), n(1, 1, "N2"), $charge #i$, curve: 0.6)
   transition(n(4, 2, "N2"), n(4, 2, "N1"), $charge #i$, curve: 0.6)
 })
