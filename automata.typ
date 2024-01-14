@@ -89,6 +89,57 @@
   transition("N2", "N1", label: (text: chargei(2), dist: 0.5))
 })
 
+#let r2(i) = v(1em) + cetz.canvas({
+  import finite.draw: *
+
+  let scale = 1.7
+  let (xmin, xmax, ymin, ymax) = (1, 5, 1, 3)
+  let n(x, y, suf) = "X" + str(x) + "Y" + str(y) + suf
+  let transition(s, e, l, curve: 0.2) = finite.draw.transition(
+    s, e, curve: curve, label: (text: text(size: 5pt, l), dist: 0.15))
+
+  let pos(bx, by, suf) = {
+    for x in range(xmin, xmax+1) {
+      for y in range(ymin, ymax+1) {
+        let initial = false
+        if (suf, i, x, y) == ("I", 1, 1, 1) or (suf, i, x, y) == ("I", 2, 4, 2) {
+          let anchor = if i == 1 { alignment.left } else { top + alignment.left }
+          initial = (text: "", anchor: anchor)
+        }
+        state(
+          (bx + scale * x, by + -scale * y), n(x, y, suf),
+          label: box(width: 1em, align(center, text(size: 6pt, n(x, y, suf)))),
+          radius: 0.5, initial: initial, final: true
+        )
+      }
+    }
+
+    transition(n(2, 2, suf), n(1, 2, suf), $uleft #i$)
+    transition(n(2, 2, suf), n(3, 2, suf), $uright #i$)
+    transition(n(2, 2, suf), n(2, 1, suf), $uup #i$)
+    transition(n(2, 2, suf), n(2, 3, suf), $udown #i$)
+
+    for x in range(xmin, xmax+1) {
+      for y in range(ymin, ymax+1) {
+        if (x, y) == (2, 2) { continue }
+        if x != xmin { transition(n(x, y, suf), n(x - 1, y, suf), $left #i$) }
+        if x != xmax { transition(n(x, y, suf), n(x + 1, y, suf), $right #i$) }
+        if y != ymin { transition(n(x, y, suf), n(x, y - 1, suf), $up #i$) }
+        if y != ymax { transition(n(x, y, suf), n(x, y + 1, suf), $down #i$) }
+      }
+    }
+  }
+
+  pos(0, 0, "I")
+  pos(scale*5, 0, "N1")
+  pos(scale*5, scale*3, "N2")
+
+  transition(n(1, 1, "I"), n(1, 1, "N2"), $charge #i$, curve: 1)
+  transition(n(4, 2, "I"), n(4, 2, "N1"), $charge #i$, curve: 0.6)
+  transition(n(1, 1, "N1"), n(1, 1, "N2"), $charge #i$, curve: 0.6)
+  transition(n(4, 2, "N2"), n(4, 2, "N1"), $charge #i$, curve: 0.6)
+})
+
 #let r2-alternate-compact(i) = v(1em) + cetz.canvas({
   import finite.draw: *
 

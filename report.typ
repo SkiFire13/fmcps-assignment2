@@ -117,9 +117,12 @@ More formally, for every state ${S}$ in $Position{i}$ we add three states: ${S}I
 
 This way all the $charge{i}$ edges represent one of the edges in the automata shown in the figure before.
 
-// TODO: Show scaled automaton
-
-Unfortunately the automaton doesn't fit in a page, so I'll avoid showing it.
+#for i in (1, 2) {
+  figure(
+    automata.r2(i),
+    caption: [ Rover #i's automaton for requirement $R 2$ ]
+  )
+}
 
 === Compact version
 
