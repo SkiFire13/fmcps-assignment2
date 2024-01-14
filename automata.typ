@@ -146,7 +146,7 @@
   transition(n(4, 2, "N2"), n(4, 2, "N1"), $charge #i$, curve: 0.6)
 })
 
-#let r2-alternate-compact(i) = v(1em) + cetz.canvas({
+#let r2-compact(i) = v(1em) + cetz.canvas({
   import finite.draw: *
 
   let mklabel(name) = box(width: 1.6em, align(center, name))
