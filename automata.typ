@@ -2,6 +2,9 @@
 #import "@preview/finite:0.3.0"
 #import "defs.typ": *
 
+// TODO: Set to false
+#let no-labels = true
+
 #let position(i) = v(2em) + cetz.canvas({
   import finite.draw: *
 
@@ -95,8 +98,11 @@
   let scale = 1.7
   let (xmin, xmax, ymin, ymax) = (1, 5, 1, 3)
   let n(x, y, suf) = "X" + str(x) + "Y" + str(y) + suf
-  let transition(s, e, l, curve: 0.2) = finite.draw.transition(
-    s, e, curve: curve, label: (text: text(size: 5pt, l), dist: 0.15))
+  let transition(s, e, l, curve: 0.2) = {
+    let label = (text: text(size: 5pt, l), dist: 0.15)
+    if no-labels { label = none }
+    finite.draw.transition(s, e, curve: curve, label: label)
+  }
 
   let pos(bx, by, suf) = {
     for x in range(xmin, xmax+1) {
@@ -183,7 +189,7 @@
   let l2 = label[ $left 1$ \ $uleft 1$ \ $right 2$ \ $uright 2$ ]
   let l3 = label[ $down 1$ \ $udown 1$ \ $up 2$ \ $uup 2$ ]
   let l4 = label[ $up 1$ \ $uup 1$ \ $down 2$ \ $udown 2$ ]
-  let (l1, l2, l3, l4) = ("", "", "", "") // TODO: remove
+  if no-labels { (l1, l2, l3, l4) = ("", "", "", "") }
 
   for (x, xs) in xstates.enumerate() {
     for (y, ys) in ystates.enumerate() {
