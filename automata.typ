@@ -2,8 +2,8 @@
 #import "@preview/finite:0.3.0"
 #import "defs.typ": *
 
-// TODO: Set to false
-#let no-labels = true
+// Set this to `true` to avoid rendering many labels and speed up compilation.
+#let no-labels = false
 
 #let position(i) = v(2em) + cetz.canvas({
   import finite.draw: *
@@ -82,14 +82,14 @@
 
   let state_style = (radius: 0.7, final: true)
   state((0, 0), "I", label: mklabel($I$), initial: "", ..state_style)
-  state((3, 1.5), "N1", label: mklabel($N1$), ..state_style)
-  state((3, -1.5), "N2", label: mklabel($N2$), ..state_style)
+  state((3, 1.5), "N2", label: mklabel($N2$), ..state_style)
+  state((3, -1.5), "N1", label: mklabel($N1$), ..state_style)
 
   let chargei(j) = align(center, text(size: 9pt)[ $charge{i}$ \ at station #j ])
-  transition("I", "N1", label: (text: chargei(2), dist: 0.5), curve: 0.85)
-  transition("I", "N2", label: (text: chargei(1), dist: -0.5), curve: -0.85)
-  transition("N1", "N2", label: (text: chargei(1), dist: 0.5, angle: 90deg))
-  transition("N2", "N1", label: (text: chargei(2), dist: 0.5))
+  transition("I", "N1", label: (text: chargei(2), dist: -0.5), curve: -0.85)
+  transition("I", "N2", label: (text: chargei(1), dist: 0.5), curve: 0.85)
+  transition("N1", "N2", label: (text: chargei(1), dist: 0.5))
+  transition("N2", "N1", label: (text: chargei(2), dist: 0.5, angle: 90deg))
 })
 
 #let r2(i) = v(1em) + cetz.canvas({
@@ -98,7 +98,7 @@
   let scale = 1.7
   let (xmin, xmax, ymin, ymax) = (1, 5, 1, 3)
   let n(x, y, suf) = "X" + str(x) + "Y" + str(y) + suf
-  let transition(s, e, l, curve: 0.2) = {
+  let transition(s, e, l, curve: 0.12) = {
     let label = (text: text(size: 5pt, l), dist: 0.15)
     if no-labels { label = none }
     finite.draw.transition(s, e, curve: curve, label: label)
@@ -142,7 +142,7 @@
 
   transition(n(1, 1, "I"), n(1, 1, "N2"), $charge #i$, curve: 1)
   transition(n(4, 2, "I"), n(4, 2, "N1"), $charge #i$, curve: -0.3)
-  transition(n(1, 1, "N1"), n(1, 1, "N2"), $charge #i$, curve: 0.6)
+  transition(n(1, 1, "N1"), n(1, 1, "N2"), $charge #i$, curve: 0.75)
   transition(n(4, 2, "N2"), n(4, 2, "N1"), $charge #i$, curve: 0.6)
 })
 
@@ -212,7 +212,7 @@
     for (y1, y2) in ystates.zip(ystates.slice(1)) {
       if x == "SX" and (y1 == "SY" or y2 == "SY") { continue }
       transition(x + y1, x + y2, label: l3, curve: 0.1)
-      transition(x + y2, x + y1, label: l2, curve: 0.1)
+      transition(x + y2, x + y1, label: l4, curve: 0.1)
     }
   }
 })

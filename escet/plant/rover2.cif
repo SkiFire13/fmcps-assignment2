@@ -68,20 +68,20 @@ plant Battery2:
     location L0:
         edge charge2 goto L6;
     location L1:
-        edge charge2 goto L6;
         edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L0;
+        edge charge2 goto L6;
     location L2:
-        edge charge2 goto L6;
         edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L1;
+        edge charge2 goto L6;
     location L3:
-        edge charge2 goto L6;
         edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L2;
+        edge charge2 goto L6;
     location L4:
-        edge charge2 goto L6;
         edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L3;
-    location L5:
         edge charge2 goto L6;
+    location L5:
         edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L4;
+        edge charge2 goto L6;
     location L6: initial; marked;
         edge left2, right2, up2, down2, uleft2, uright2, uup2, udown2 goto L5;
 end

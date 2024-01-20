@@ -15,44 +15,44 @@ plant R3X:
     location L4: marked;
         edge right1, uright1, left2, uleft2 goto L3;
     location L3: initial; marked;
-        edge right1, uright1, left2, uleft2 goto L2;
         edge left1, uleft1, right2, uright2 goto L4;
+        edge right1, uright1, left2, uleft2 goto L2;
     location L2: marked;
-        edge right1, uright1, left2, uleft2 goto L1;
         edge left1, uleft1, right2, uright2 goto L3;
+        edge right1, uright1, left2, uleft2 goto L1;
     location L1: marked;
-        edge right1, uright1, left2, uleft2 goto SX;
         edge left1, uleft1, right2, uright2 goto L2;
+        edge right1, uright1, left2, uleft2 goto SX;
     location SX: marked;
-        edge right1, uright1, left2, uleft2 goto R1;
         edge left1, uleft1, right2, uright2 goto L1;
+        edge right1, uright1, left2, uleft2 goto R1;
         edge sametile                       goto SX;
     location R1: marked;
-        edge right1, uright1, left2, uleft2 goto R2;
         edge left1, uleft1, right2, uright2 goto SX;
+        edge right1, uright1, left2, uleft2 goto R2;
     location R2: marked;
-        edge right1, uright1, left2, uleft2 goto R3;
         edge left1, uleft1, right2, uright2 goto R1;
+        edge right1, uright1, left2, uleft2 goto R3;
     location R3: marked;
-        edge right1, uright1, left2, uleft2 goto R4;
         edge left1, uleft1, right2, uright2 goto R2;
+        edge right1, uright1, left2, uleft2 goto R4;
     location R4: marked;
         edge left1, uleft1, right2, uright2 goto R3;
 end
 
 plant R3Y:
-    location T2: marked;
-        edge down1, udown1, up2, uup2 goto T1;
-    location T1: initial; marked;
+    location U2: marked;
+        edge down1, udown1, up2, uup2 goto U1;
+    location U1: initial; marked;
+        edge up1, uup1, down2, udown2 goto U2;
         edge down1, udown1, up2, uup2 goto SY;
-        edge up1, uup1, down2, udown2 goto T2;
     location SY: marked;
+        edge up1, uup1, down2, udown2 goto U1;
         edge down1, udown1, up2, uup2 goto B1;
-        edge up1, uup1, down2, udown2 goto T1;
         edge sametile                 goto SY;
     location B1: marked;
-        edge down1, udown1, up2, uup2 goto B2;
         edge up1, uup1, down2, udown2 goto SY;
+        edge down1, udown1, up2, uup2 goto B2;
     location B2: marked;
         edge up1, uup1, down2, udown2 goto B1;
 end

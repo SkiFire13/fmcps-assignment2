@@ -24,7 +24,7 @@
 #let X1Y2 = var("X1Y2")
 #let X3Y2 = var("X3Y2")
 #let X2Y1 = var("X2Y1")
-#let X2Y3 = var("X2Y1")
+#let X2Y3 = var("X2Y3")
 
 #let L0 = var("L0")
 #let L6 = var("L6")
